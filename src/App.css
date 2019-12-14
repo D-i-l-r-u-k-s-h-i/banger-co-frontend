@@ -1,22 +1,56 @@
-.App {
-  text-align: center;
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+
 }
 
-.App-logo {
-  height: 40vmin;
+.app-form-item {
+  margin: 0 0 15px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app-form-item label {
+  /* text-transform: uppercase; */
+  display: block;
+  font-weight: 400;
+  margin: 0 0 8px 0;
 }
 
-.App-link {
-  color: #09d3ac;
+.app-form-item input[type='text'],
+.app-form-item input[type='email'],
+.app-form-item input[type='password'] .app-form-item input[type='text']:focus,
+.app-form-item input[type='text'] :active,
+.app-form-item input[type='email']:focus,
+.app-form-item input[type='email'] :active,
+.app-form-item input[type='password']:focus,
+.app-form-item input[type='password'] :active .app-card {
+  overflow: hidden;
+  position: relative;
+  background: #FFFFFF;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+  .app-card {
+    width: 350px;
+    position: relative;
+    left: 700px;
+  }
+}
+
+.app-card .app-card-header-inner {
+  padding: 10px 20px;
+}
+
+.app-card .app-card-content .app-card-content-inner {
+  padding: 20px;
+}
+
+.app-card-content .app-card-content-inner,
+.app-card-content .app-card-content-inner {
+  padding: 40px;
 }
