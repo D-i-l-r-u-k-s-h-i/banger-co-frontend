@@ -63,3 +63,8 @@ export const post=(route,data)=>{
     return instance.post(route,JSON.stringify(data))
 }
 
+export const Get = (route, data) => {
+    instance || setAuth()
+    return instance.get(route, data == {} ? null : JSON.stringify(data));
+    // return instance.get(route, data);
+}
