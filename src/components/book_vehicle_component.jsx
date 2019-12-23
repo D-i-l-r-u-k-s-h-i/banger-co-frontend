@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import Rater from 'react-rater'
 import { Link } from 'react-router-dom'
+import {Button,ButtonToolbar} from 'react-bootstrap'
 
 export class BookVehicleComponent extends Component {
-
+    constructor(props){
+        super(props)
+        this.state={
+            modalShow:false
+        }
+    }
     render() {
         let property = this.props.props.location.state && this.props.props.location.state.property
+
+        let modalClose=()=>this.setState({modalShow:false});
         // console.log(this.props)
         return (
             <div>
@@ -24,7 +32,14 @@ export class BookVehicleComponent extends Component {
                                 Type: {property.vehicleType}<br />
                                 Rating: {property.vehicleRating}<br />
                                 Price: {property.vehicleRentalPrice}<br /><br />
-                                <Link to={{
+
+                                <ButtonToolbar>
+                                    <Button varient='primary'
+                                    onClick={()=>this.setState({modalShow:true})}>
+                                        
+                                    </Button>
+                                </ButtonToolbar>
+                                {/* <Link to={{
                                     pathname: '/schedule',
                                     state: {
                                         property: property
@@ -33,7 +48,7 @@ export class BookVehicleComponent extends Component {
                                     id="submit"
                                     type="submit"
                                     className="btn btn-primary btn-lg"
-                                >Schedule</Link>
+                                >Schedule</Link> */}
                             </div>
                         </td>
                     </tr>
