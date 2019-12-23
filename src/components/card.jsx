@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
 
 const Card = ({property}) => {
     const {index, vehicleImgLink, vehicleRentalPrice, vehicleName, vehicleType,vehicleRating,gearboxType} = property;
@@ -17,11 +16,6 @@ const Card = ({property}) => {
                     Price: {vehicleRentalPrice}<br/><br/>
                     {vehicleRating}<Rater rating={vehicleRating} total={5} interactive={false} />
                 </p>
-                {/* <ul className="features">
-                    <li className="icon-bed">{bedrooms} <span>bedrooms</span></li>
-                    <li className="icon-bath">{bathrooms} <span>bathrooms</span></li>
-                    <li className="icon-car">{carSpaces} <span>parking spots</span></li>
-                </ul> */}
             </div>
         </div>
     )

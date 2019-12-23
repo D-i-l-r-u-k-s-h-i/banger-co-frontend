@@ -20,7 +20,7 @@ const allvehicles = createLogic({
     }, dispatch, done) {
         let HTTPclient = api
 
-        debugger
+        // debugger
         console.log("payload check", action.payload)
 
         let obj = [{
@@ -37,7 +37,7 @@ const allvehicles = createLogic({
 
         HTTPclient.get(endPoints.ALL_VEHICLES, obj)
             .then(resp => {
-                debugger
+                // debugger
                 dispatch(allVehicleActions.allVehiclesSuccess(resp.data))
             })
             .catch(err => {

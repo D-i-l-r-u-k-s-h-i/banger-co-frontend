@@ -8,7 +8,8 @@ axios.defaults.headers.post["Content-Type"] = 'application/json'
 var instance = null;
 
 export const setAuth = () => {
-    if(localStorage.jwt==null){
+    if(localStorage.jwt==undefined){
+        // debugger
         instance = axios.create({
             baseURL: '',
             timeout: 30000,
@@ -32,6 +33,7 @@ export const setAuth = () => {
         });
     }
     else{
+        // debugger
         instance = axios.create({
             baseURL: '',
             timeout: 30000,
@@ -63,8 +65,8 @@ export const post=(route,data)=>{
     return instance.post(route,JSON.stringify(data))
 }
 
-export const Get = (route, data) => {
+export const get = (route, data) => {
     instance || setAuth()
-    return instance.get(route, data == {} ? null : JSON.stringify(data));
+    return instance.get(route, data === {} ? null : JSON.stringify(data));
     // return instance.get(route, data);
 }

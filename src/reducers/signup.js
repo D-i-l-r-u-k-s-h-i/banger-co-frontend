@@ -13,7 +13,7 @@ export default handleActions({
     [signUpTypes.SUCCESS_SIGN_UP]:(state,{payload})=>({
         ...state,loading:false,SignUpData:payload
     }),
-    [signUpTypes.SIGN_UP]:(state,{payload})=>({
+    [signUpTypes.FAIL_SIGN_UP]:(state,{payload})=>({
         ...state,loading:false,SignUpData:null
     }),
 },initialState)
