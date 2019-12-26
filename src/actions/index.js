@@ -1,6 +1,7 @@
 import * as SignUp from './signup'
 import * as AllVehicles from './allVehicles'
 import * as Login from './login'
+import * as MakeBooking from './makeBooking'
 
 //taken by reducer
 export{
@@ -16,6 +17,11 @@ export{
     AllVehicles as allVehicleTypes
 }
 
+export{
+    MakeBooking as bookingTypes
+}
+
+export const bookingActions=MakeBooking.default;
 //for the actions
 export const allVehicleActions=AllVehicles.default;
 //for the actions

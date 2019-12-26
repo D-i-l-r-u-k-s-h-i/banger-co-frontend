@@ -14,8 +14,8 @@ function App() {
     <Router history={history}>
       <Switch>
         <Route index={1} exact ={true} path={'/login'} component={Loginpage}/>
-        <Route index={1} exact ={true} path={'/signup'} component={SignupPage}/>
         <Route index={1} exact ={true} path={'/custdash'} component={CustomerDashboard}/>
+        <Route index={1} exact ={true} path={'/signup'} component={SignupPage}/>
         <Route index={1} exact ={true} path={'/vehicle'} component={VehiclePage}/>
         <Route index={1} exact ={true} path={'/schedule'} component={SchedularModal}/>
       </Switch>

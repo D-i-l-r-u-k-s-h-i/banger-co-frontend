@@ -23,21 +23,10 @@ const allvehicles = createLogic({
         // debugger
         console.log("payload check", action.payload)
 
-        let obj = [{
-            id: action.payload.id,
-            index: action.payload.index,
-            vehicleRentalPrice: action.payload.rentalprice,
-            vehicleImgLink: action.payload.imglink,
-            vehicleName: action.payload.vehiclename,
-            gearboxType: action.payload.gearbox,
-            vehicleType: action.payload.vehicletype,
-            vehicleRating: action.payload.rating,
-            availabilityStatus: action.payload.availability
-        }]
-
-        HTTPclient.get(endPoints.ALL_VEHICLES, obj)
+        HTTPclient.get(endPoints.ALL_VEHICLES)
             .then(resp => {
-                // debugger
+                //debugger
+                console.log(resp.data)
                 dispatch(allVehicleActions.allVehiclesSuccess(resp.data))
             })
             .catch(err => {
@@ -47,7 +36,6 @@ const allvehicles = createLogic({
                 }
                 dispatch(allVehicleActions.allVehiclesFail(errormsg))
             }).then(() => done());
-
     }
 })
 

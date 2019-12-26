@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Rater from 'react-rater'
 import { Link } from 'react-router-dom'
 import {Button,ButtonToolbar} from 'react-bootstrap'
+import SchedularModal from './schedular_modal';
 
 export class BookVehicleComponent extends Component {
     constructor(props){
@@ -14,7 +15,7 @@ export class BookVehicleComponent extends Component {
         let property = this.props.props.location.state && this.props.props.location.state.property
 
         let modalClose=()=>this.setState({modalShow:false});
-        // console.log(this.props)
+        console.log(this.props)
         return (
             <div>
                 <table >
@@ -22,6 +23,7 @@ export class BookVehicleComponent extends Component {
                         <td>
                             <div className="imgalign">
                                 <img src={property.vehicleImgLink} alt="img" /><hr />
+                                {/* <img src="http://uscarsales.lk/erp/carsale/website/SHOWROOM/RW1-1000759_20190722_01_28_171.jpg" alt="img" /><hr /> */}
                                 Rate your experience with this vehicle: <Rater onRate={({ rating }) => { }} total={5} interactive={true} />
                             </div>
                         </td>
@@ -36,8 +38,9 @@ export class BookVehicleComponent extends Component {
                                 <ButtonToolbar>
                                     <Button varient='primary'
                                     onClick={()=>this.setState({modalShow:true})}>
-                                        
+                                       Schedule 
                                     </Button>
+                                    <SchedularModal props={this.props} show={this.state.modalShow} onHide={modalClose}/>
                                 </ButtonToolbar>
                                 {/* <Link to={{
                                     pathname: '/schedule',
