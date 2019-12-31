@@ -2,10 +2,16 @@ import signupService from './signupService'
 import allVehiclesService from './allVehiclesService'
 import loginService from './loginService'
 import bookingService from './makeBookingService'
+import reviewService from './reviewService'
+import ratingsService from './ratingsService'
+import getTimeSlotsService from './getTimeSlotsService'
 
 export default [
     ...signupService,
     ...allVehiclesService,
     ...loginService,
-    ...bookingService
+    ...bookingService,
+    ...reviewService,
+    ...ratingsService,
+    ...getTimeSlotsService
 ]

@@ -5,9 +5,9 @@ function NavBarComponent() {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/home">Banger & Co</Navbar.Brand>
+                <Navbar.Brand href="/custdash">&#8492;anger &#8523; &#8450;o</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
+                    <Nav.Link href="/custdash">Home</Nav.Link>
                     <Nav.Link href="#features">About</Nav.Link>
                 </Nav>
                 <Nav className="ml-auto">

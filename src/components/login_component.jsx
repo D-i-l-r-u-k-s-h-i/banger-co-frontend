@@ -37,9 +37,9 @@ export class LoginComponent extends Component {
         e.preventDefault();
         // debugger
         this.props.loginActions.login(this.state)
-        // if(loginActions.loginSuccess){
-        //     this.props.history.push('/custdash');
-        // }
+        if(loginActions.loginSuccess){
+            this.props.history.push('/custdash');
+        }
         // else if(loginActions.loginFail){
         //     this.props.history.push('/login');
         //     //display fail message

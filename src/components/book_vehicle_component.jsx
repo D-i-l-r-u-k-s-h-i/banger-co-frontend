@@ -1,21 +1,91 @@
 import React, { Component } from 'react'
 import Rater from 'react-rater'
-import { Link } from 'react-router-dom'
-import {Button,ButtonToolbar} from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { withRouter} from 'react-router-dom'
+import { addRatingActions , getTimeSlotActions} from '../actions'
+import { Button, ButtonToolbar } from 'react-bootstrap'
 import SchedularModal from './schedular_modal';
+import ReviewsComponent from './reviews_component';
 
 export class BookVehicleComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-            modalShow:false
+        this.state = {
+            loading: false,
+            modalShow: false,
+            rating:null,
+            vehicleid:this.props.props.location.state.property.id,
+            ratingState:null,
+            timeSlots:[],
+            timeslotData:props.timeslotData
         }
     }
+
+    static getDerivedStateFromProps(nextProps,prevState){
+        console.log(prevState)
+        let newProps={}
+        if (nextProps.timeslotData && nextProps.timeslotData !== prevState.timeslotData) {
+            newProps.timeslotData = nextProps.timeslotData
+        }
+        if (nextProps.location.hash && (nextProps.location.hash !== prevState.hash)) {
+            return {
+                hash: nextProps.location.hash
+            }
+        }
+        if(newProps.timeslotData){
+            return{
+                timeslotData:newProps.timeslotData,
+            }
+        }
+        console.log(newProps)
+        return {
+            ...newProps
+        };
+    }
+
+    handleRating=(e)=>{
+        debugger
+        // const rate=e.target.value;
+        console.log(e.rating)
+
+        this.setState({
+            rating:e.rating
+        })
+    }
+
+    handleRateClick=()=>{
+        debugger
+        if(this.state.rating!=null){
+            this.props.addRatingActions.addRating(this.state)
+        }
+        
+    }
+    async componentDidMount(){
+        this.setState({ loading: true });
+        //to get specific details on non-available time slots
+        await this.refreshList();
+        
+    }
+
+    refreshList(){
+        this.props.getTimeSlotActions.getTimeSlots(this.state)
+
+        console.log(this.state)
+    }
+
     render() {
         let property = this.props.props.location.state && this.props.props.location.state.property
 
-        let modalClose=()=>this.setState({modalShow:false});
-        console.log(this.props)
+        let modalClose = () => this.setState({ modalShow: false });
+
+        const timeslotArr=this.state.timeslotData;
+        console.log(timeslotArr)
+        // console.log(this.props.timeslotData)
+        // console.log(this.state.timeslotData)
+
+        const ratingg=this.props;
+
         return (
             <div>
                 <table >
@@ -23,8 +93,12 @@ export class BookVehicleComponent extends Component {
                         <td>
                             <div className="imgalign">
                                 <img src={property.vehicleImgLink} alt="img" /><hr />
-                                {/* <img src="http://uscarsales.lk/erp/carsale/website/SHOWROOM/RW1-1000759_20190722_01_28_171.jpg" alt="img" /><hr /> */}
-                                Rate your experience with this vehicle: <Rater onRate={({ rating }) => { }} total={5} interactive={true} />
+                                
+                                Rate your experience with this vehicle: <Rater total={5} interactive={true} rating={ratingg.rating}
+                                            // onRating={({rating}) => {this.handleRating(rating)}} 
+                                            onRate={this.handleRating} //({rating}) => {this.handleRating(rating)}
+                                            // onCancelRate={this.handleCancelRate}
+                                            onClick={this.handleRateClick}/>
                             </div>
                         </td>
                         <td>
@@ -37,30 +111,36 @@ export class BookVehicleComponent extends Component {
 
                                 <ButtonToolbar>
                                     <Button varient='primary'
-                                    onClick={()=>this.setState({modalShow:true})}>
-                                       Schedule 
+                                        onClick={()=>this.setState({ modalShow: true })}>
+                                        Schedule
                                     </Button>
-                                    <SchedularModal props={this.props} show={this.state.modalShow} onHide={modalClose}/>
+                                    <SchedularModal props={this.props} show={this.state.modalShow} onHide={modalClose} />
                                 </ButtonToolbar>
-                                {/* <Link to={{
-                                    pathname: '/schedule',
-                                    state: {
-                                        property: property
-                                    }
-                                }}
-                                    id="submit"
-                                    type="submit"
-                                    className="btn btn-primary btn-lg"
-                                >Schedule</Link> */}
                             </div>
                         </td>
                     </tr>
                 </table>
                 <hr />
+                <ReviewsComponent vehicleid={property.id}/>
             </div>
 
         )
     }
 }
 
-export default BookVehicleComponent
+function mapDispatchToProps (dispatch){
+    return{
+        addRatingActions: bindActionCreators(addRatingActions,dispatch),
+        getTimeSlotActions:bindActionCreators(getTimeSlotActions,dispatch)
+    }
+}
+
+
+function mapStateToProps (state){
+    return{
+        ...state.AddRating,
+        ...state.GetTimeSlots
+    }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(BookVehicleComponent))

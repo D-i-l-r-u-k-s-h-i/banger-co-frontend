@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import DatePicker from "react-datepicker";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
 import moment from 'moment'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { bookingActions } from '../actions'
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -15,47 +13,87 @@ export class SchedularModal extends Component {
         super(props);
         this.state = {
             startDate: new Date(),
-            endDate:new Date(),
-            vehicleId:1
-            // vehicleId:this.props.props.props.location.state.property.id
+            endDate: new Date(),
+            timeslots: [],
+            vehicleId: this.props.props.props.location.state.property.id
         }
     }
 
-    static getDerivedStateFromProps(nextProps,prevState){
-        console.log(nextProps)
-        if(prevState.bookingState===null){
-            return{
-                bookingState: nextProps.BookingData
-            }
-        }else return null
+    handleStartChange = date => {
+        this.handleTimeSlots(date);
+
+        this.setState({
+            startDate: date,
+        });
+    };
+
+    //startDate=12.30 AM(00.30)
+    getTimeStops = (start, end) => {
+        var startTime = moment(start);
+        var endTime = moment(end);
+
+        if (endTime.isBefore(startTime)) {
+            endTime.add(1, 'day');
+        }
+
+        var timeStops = [];
+
+        while (startTime <= endTime) {
+            timeStops.push(moment(startTime)._d);
+            startTime.add(30, 'minutes');
+        }
+        console.log(timeStops)
+        return timeStops;
     }
 
-    handleStartChange = date => {
-        this.setState({
-            startDate: date
+
+    handleTimeSlots = (date) => {
+        let timeSlotArray = this.props.props.timeslotData
+        var arr = [];
+
+        timeSlotArray.forEach(element => {
+            let year = moment(element.timeSlot).get('year');
+            let month = moment(element.timeSlot).get('month');  // 0 to 11
+            let day = moment(element.timeSlot).get('date');
+
+            if (date !== null) {
+                if (moment(date).get('year') === year && moment(date).get('month') === month && moment(date).get('date') === day) {
+                    arr.push(moment(element.timeSlot).hours(element.hour).minutes(element.minute)._d)
+                }
+            } else {
+                if (moment().get('year') === year && moment().get('month') === month && moment().get('date') === day) {
+                    arr.push(moment(element.timeSlot).hours(element.hour).minutes(element.minute)._d)
+                }
+            }
         });
-    };
+        if(moment().get('year') === moment(date).get('year') && moment().get('month') === moment(date).get('month') && moment().get('date') === moment(date).get('date')){
+            arr = arr.concat(this.getTimeStops(moment().hours(0).minutes(0).seconds(0)._d, moment()._d))
+        }
+        console.log(arr)
+
+        this.setState({
+            timeslots: arr
+        });
+    }
 
     handleEndChange = date => {
+        this.handleTimeSlots(date);
+
         this.setState({
-            endDate: date
+            endDate: date,
         });
     };
 
-    handleSubmit=(e)=> {
+    handleSubmit = (e) => {
         e.preventDefault();
         //fire action to save booking details
         this.props.bookingActions.booking(this.state)
         // this.props.onHide
     }
 
-    // componentDidMount(){
-    //     //to get specific details on non-available time slots
-    // }
-
     render() {
-        let property = this.props.props.props.location.state && this.props.props.props.location.state.property
-        
+        let timeSlotArray = this.state.timeslots;
+
         return (
             <div>
                 <Modal
@@ -73,34 +111,26 @@ export class SchedularModal extends Component {
                         <h4>Availability</h4>
                         Pick-up date
                         <DatePicker
+                            onInputClick={this.handleTimeSlots}
                             selected={this.state.startDate}
                             onChange={this.handleStartChange}
                             minDate={moment().toDate()}
                             showTimeSelect
                             dateFormat="yyyy-MM-dd h:mm aa"
-                            excludeTimes={[
-                                setHours(setMinutes(new Date(), 0), 17),
-                                setHours(setMinutes(new Date(), 30), 18),
-                                setHours(setMinutes(new Date(), 30), 19),
-                                setHours(setMinutes(new Date(), 30), 17)
-                            ]}
+                            excludeTimes={timeSlotArray}
                         />
                         Drop-off date
                         <DatePicker
+                            onInputClick={this.handleTimeSlots}
                             selected={this.state.endDate}
                             onChange={this.handleEndChange}
                             minDate={moment().toDate()}
                             showTimeSelect
                             dateFormat="yyyy-MM-dd h:mm aa"
                             selectsEnd
-                            excludeTimes={[
-                                setHours(setMinutes(new Date(), 0), 17),
-                                setHours(setMinutes(new Date(), 30), 18),
-                                setHours(setMinutes(new Date(), 30), 19),
-                                setHours(setMinutes(new Date(), 30), 17)
-                            ]}
+                            excludeTimes={timeSlotArray}
                         />
-                        
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleSubmit} type='submit'>Make Booking</Button>
@@ -111,17 +141,17 @@ export class SchedularModal extends Component {
     }
 }
 
-function mapDispatchToProps (dispatch){
-    return{
-        bookingActions: bindActionCreators(bookingActions,dispatch)
+function mapDispatchToProps(dispatch) {
+    return {
+        bookingActions: bindActionCreators(bookingActions, dispatch),
     }
 }
 
 
-function mapStateToProps (state){
-    return{
+function mapStateToProps(state) {
+    return {
         ...state.Booking,
     }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(SchedularModal))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SchedularModal))

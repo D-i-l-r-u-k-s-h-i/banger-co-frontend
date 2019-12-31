@@ -74,14 +74,14 @@ export class SliderComponent extends Component {
             <div className="page">
             <section>
                 <h1>Select your car here.</h1>
-                <button
+                <button className="btn btn-primary active"
                     onClick={() => this.prevProperty()}
                     disabled={property.index===0}
-                >Prev</button>
-                <button
+                >❮❮Prev</button>
+                <button className="btn btn-primary active"
                     onClick={() => this.nextProperty()}
                     disabled={property.index === vehicleData.length - 1}
-                >Next>></button>
+                >Next❯❯</button>
 
             </section>
             <br></br><br></br>
