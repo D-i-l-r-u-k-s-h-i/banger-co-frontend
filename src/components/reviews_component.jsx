@@ -13,7 +13,7 @@ export class ReviewsComponent extends Component {
 
         this.state = {
             reviewData: [],
-            vehicleid:this.props.vehicleid,
+            vehicleid:this.props.vehicleid, //check whether this is actually needed
             review:null,
             loading: false
         };
@@ -30,7 +30,7 @@ export class ReviewsComponent extends Component {
                 hash: nextProps.location.hash
             }
         }
-        if(newProps.vehicleData){
+        if(newProps.reviewData){
             return{
             //    loading: true,
                reviewData:newProps.reviewData,
@@ -51,15 +51,6 @@ export class ReviewsComponent extends Component {
         this.props.getReviewsActions.getReviews(this.state)
     }
 
-    addComment(reviewData) {
-        this.setState({
-            loading: false,
-            reviewData: [reviewData, ...this.state.reviewData]
-        });
-    }
-
-
-
     render() {
         console.log(this.state)
         return (
@@ -73,7 +64,7 @@ export class ReviewsComponent extends Component {
                             loading={this.state.loading}
                             reviews={this.state.reviewData}
                         /><br/>
-                        <ReviewForm addComment={this.addComment} />
+                        <ReviewForm />
                     </div>
                 </div>
             </div>

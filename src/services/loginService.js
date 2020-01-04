@@ -15,7 +15,7 @@ const login=createLogic({
     },dispatch,done){
         let HTTPclient=api
 
-        // debugger
+        debugger
         console.log("payload check",action.payload)
 
         let obj={
@@ -25,7 +25,7 @@ const login=createLogic({
 
         HTTPclient.post(endPoints.LOGIN,obj)
             .then(resp=> {
-                // debugger
+                debugger
                 dispatch(loginActions.loginSuccess(resp.data))
                 return(resp.data)
             })

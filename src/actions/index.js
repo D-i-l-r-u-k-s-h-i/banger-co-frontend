@@ -6,6 +6,10 @@ import * as AddReview from './addReview'
 import * as AddRating from './addRating'
 import * as GetReviews from './getReviews'
 import * as GetTimeSlots from './getTimeSlots'
+import * as GetCurrentBookings from './getCurrentBookings'
+import * as GetPastBookings from './getPastBookings'
+import * as AllAdditionalEquips from './allAdditionalEquips'
+
 
 //taken by reducer
 export{
@@ -40,10 +44,28 @@ export{
     GetTimeSlots as getTimeSlotTypes
 }
 
+export{
+    GetCurrentBookings as getCurrentBookingTypes
+}
+
+export{
+    GetPastBookings as getPastBookingTypes
+}
+
+export{
+    AllAdditionalEquips as allAdditionalEquipTypes
+}
+
 
 
 //for the actions
+export const allAdditionalEquipsActions=AllAdditionalEquips.default;
+
 export const addReviewActions=AddReview.default;
+
+export const getPastBookingActions=GetPastBookings.default;
+
+export const getCurrentBookingActions=GetCurrentBookings.default;
 
 export const getTimeSlotActions=GetTimeSlots.default;
 

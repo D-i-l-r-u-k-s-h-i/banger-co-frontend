@@ -5,10 +5,12 @@ import NavBarComponent from '../components/navbar_component';
 export class CustomerDashboard extends Component {
     render() {
         return (
-            <div>
-                <NavBarComponent/>
-                <CustomerDashboardComponent/>
+
+            <div className="body_container">
+                <NavBarComponent />
+                <CustomerDashboardComponent />
             </div>
+
         )
     }
 }

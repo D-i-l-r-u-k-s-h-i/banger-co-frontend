@@ -3,10 +3,10 @@ import Review from './review';
 
 function ReviewList(props) {
     return (
-        <div className="commentList">
+        <div >
           <h5 className="text-muted mb-4">
             <span className="badge badge-success">{props.reviews.length}</span>{" "}
-            Comment{props.reviews.length > 0 ? "s" : ""}
+            Comment{props.reviews.length > 1 ||props.reviews.length===0 ? "s" : ""}
           </h5>
     
           {props.reviews.length === 0 && !props.loading ? (

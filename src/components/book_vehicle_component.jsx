@@ -45,7 +45,7 @@ export class BookVehicleComponent extends Component {
     }
 
     handleRating=(e)=>{
-        debugger
+        // debugger
         // const rate=e.target.value;
         console.log(e.rating)
 
@@ -55,7 +55,7 @@ export class BookVehicleComponent extends Component {
     }
 
     handleRateClick=()=>{
-        debugger
+        // debugger
         if(this.state.rating!=null){
             this.props.addRatingActions.addRating(this.state)
         }
@@ -103,18 +103,19 @@ export class BookVehicleComponent extends Component {
                         </td>
                         <td>
                             <div className="discription">
-                                <h1>Vehicle Name: {property.vehicleName}</h1><br />
+                                <h1>{property.vehicleName}</h1><br />
                                 Gearbox Type: {property.gearboxType}<br />
-                                Type: {property.vehicleType}<br />
-                                Rating: {property.vehicleRating}<br />
-                                Price: {property.vehicleRentalPrice}<br /><br />
+                                Vehicle Type: {property.vehicleType}<br />
+                                Fuel Type:{property.fuelType}<br/>
+                                Rating: <Rater rating={property.vehicleRating} total={5} interactive={false} /> <br />
+                                Price: Rs.{property.vehicleRentalPrice*12}.00 per Day <br /><br />
 
                                 <ButtonToolbar>
                                     <Button varient='primary'
                                         onClick={()=>this.setState({ modalShow: true })}>
                                         Schedule
                                     </Button>
-                                    <SchedularModal props={this.props} show={this.state.modalShow} onHide={modalClose} />
+                                    <SchedularModal props={this.props} type={"VEHICLE"} show={this.state.modalShow} onHide={modalClose} />
                                 </ButtonToolbar>
                             </div>
                         </td>

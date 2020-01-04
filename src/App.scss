@@ -7,6 +7,39 @@
 
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Corben', Georgia, Times, serif;
+}
+
+p, div {
+  font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+.list_table{
+  width:100%;
+
+  td:nth-child(1) {
+    width: 60%;
+    }
+  
+  /* the second */
+  td:nth-child(2) {
+    width: 20%;
+  }
+  
+  /* the third */
+  td:nth-child(3) {
+    width: 20%;
+   }
+}
+
+.remove_icon{
+  text-align: right;
+}
+
+.body_container{
+    // background: url(https://i.pinimg.com/originals/de/0f/4b/de0f4bf6e8075312a6eb20ad7044571a.jpg) repeat 0 0;
+}
+$react-rater-active: #ffef00!default;
 .center{
   margin: auto;
   width: 60%;
@@ -46,6 +79,10 @@ td{
 .discription{
   position: relative;
   padding: 10%;
+}
+
+.topics{
+  padding-left: 10%;
 }
 
 .app-form-item {
@@ -135,45 +172,14 @@ section {
     right: 0;
     display: block;
     padding: 0 10px;
+    word-wrap: normal;
   }
-  // .price {
-  //   margin: 0;
-  //   padding: 10px 0;
-  //   font-weight: bold;
-  // }
+  
   .details {
     position: relative;
     font-size: 8%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
   }
-  // .features {
-  //   list-style: none;
-  //   padding: 0;
-  //   margin: 0;
-  //   li {
-  //     padding-left: 24px;
-  //     margin-right: 10px;
-  //     display: inline-block;
-  //     span {
-  //       display: none;
-  //     }
-  //     &.icon-bed {
-  //       background: url(./assets/bed-left-side.svg) left center;
-  //       background-size: auto 100%;
-  //       background-repeat: no-repeat;
-  //     }
-  //     &.icon-bath {
-  //       background: url(./assets/bathtub.svg);
-  //       background-size: auto 100%;
-  //       background-repeat: no-repeat;
-  //     }
-  //     &.icon-car {
-  //       background: url(./assets/car-compact.svg);
-  //       background-size: auto 100%;
-  //       background-repeat: no-repeat;
-  //     }
-  //   }
-  // }
 }
 
 /* #endregion */

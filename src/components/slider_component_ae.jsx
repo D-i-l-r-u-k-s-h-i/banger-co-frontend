@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
-// import data from '../MockData/data'
-import Card from './card';
-import { allVehicleActions } from '../actions'
+import { allAdditionalEquipsActions } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter, Link } from 'react-router-dom'
+import CardAE from './ae_card';
 
-export class SliderComponent extends Component {
-
+export class SliderComponentAE extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            vehicleData: props.vehicleData,
+            additionalEquipsData: props.additionalEquipsData,
             property: null,
             loaded: false,
-            allVehiclesState: null
+            additionalEquipsState: null
         }
     }
 
@@ -23,25 +21,25 @@ export class SliderComponent extends Component {
     }
 
     refreshList(){
-        this.props.allVehicleActions.allVehicles(this.state)
+        this.props.allAdditionalEquipsActions.allAdditionalEquips(this.state)
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         // console.log(nextProps)
         let newProps={}
-        if (nextProps.vehicleData && nextProps.vehicleData !== prevState.vehicleData) {
-            newProps.vehicleData = nextProps.vehicleData
+        if (nextProps.additionalEquipsData && nextProps.additionalEquipsData !== prevState.additionalEquipsData) {
+            newProps.additionalEquipsData = nextProps.additionalEquipsData
         }
         if (nextProps.location.hash && (nextProps.location.hash !== prevState.hash)) {
             return {
                 hash: nextProps.location.hash
             }
         }
-        if(newProps.vehicleData){
+        if(newProps.additionalEquipsData){
             return{
                loaded: true,
-               vehicleData:newProps.vehicleData,
-               property: newProps.vehicleData[0]
+               additionalEquipsData:newProps.additionalEquipsData,
+               property: newProps.additionalEquipsData[0]
             }
         }
         // console.log(newProps)
@@ -51,11 +49,11 @@ export class SliderComponent extends Component {
     }
 
     nextProperty = () => {
-        // console.log(this.props.vehicleData[0].index)
+        // console.log(this.props.additionalEquipsData[0].index)
         
         const newIndex = this.state.property.index + 1;
         this.setState({
-            property: this.state.vehicleData[newIndex]
+            property: this.state.additionalEquipsData[newIndex]
         })
         
     }
@@ -63,17 +61,19 @@ export class SliderComponent extends Component {
     prevProperty = () => {
         const newIndex = this.state.property.index - 1;
         this.setState({
-            property: this.state.vehicleData[newIndex]
+            property: this.state.additionalEquipsData[newIndex]
         })
     }
 
     content() {
-        const { vehicleData,property} = this.state;
+        console.log(this.props)
+        
+        const { additionalEquipsData,property} = this.state;
         
         return(
             <div className="page">
                 <div className="topics">
-                <h1>Select your car here.</h1>
+                    <h1>Travel equiment that you might need.</h1>
                 </div>
             <section>
                 <button className="btn btn-primary active"
@@ -82,27 +82,27 @@ export class SliderComponent extends Component {
                 >❮❮Prev</button>
                 <button className="btn btn-primary active"
                     onClick={() => this.nextProperty()}
-                    disabled={property.index === vehicleData.length - 1}
+                    disabled={property.index === additionalEquipsData.length - 1}
                 >Next❯❯</button>
 
             </section>
-            <br></br><br></br><br/>
+            <br></br><br></br><br></br><br></br>
             <div className="col">
                 <div className={`cards-slider active-slide-${property.index}`}>
                     <div className="cards-slider-wrapper" style={{
-                        'transform': `translateX(-${property.index * (100 / vehicleData.length)}%)`
+                        'transform': `translateX(-${property.index * (100 / additionalEquipsData.length)}%)`
                     }}>
                          {
-                            vehicleData.map(property => <Card key={property._id} property={property} />)
+                            additionalEquipsData.map(property => <CardAE key={property._id} property={property} />)
                         }
                     </div>
                 </div>
             </div>
-            <br /><br /><br /><br /><br/>
-            <section>
-                <div className="center">
+            <br /><br /><br /><br /><br /><br /><br /><br />
+                <section>
+                    <div className="center">
                     <Link to={{
-                        pathname: '/vehicle',
+                        pathname: '/aequipment',
                         state: {
                             property: this.state.property
                         }
@@ -110,9 +110,11 @@ export class SliderComponent extends Component {
                         id="submit"
                         type="submit"
                         className="btn btn-primary btn-lg"
-                    >Book Now</Link><br />
-                </div>
-            </section>
+                    >More Details</Link>
+
+                        <br />
+                    </div>
+                </section>
         </div>
         )
     }
@@ -120,23 +122,22 @@ export class SliderComponent extends Component {
     render() {
         return (
             <div>
-               {this.state.loaded ? this.content() : null}
+                {this.state.loaded ? this.content() : null}
             </div>
         )
     }
 }
-
 function mapDispatchToProps(dispatch) {
     return {
-        allVehicleActions: bindActionCreators(allVehicleActions, dispatch)
+        allAdditionalEquipsActions: bindActionCreators(allAdditionalEquipsActions, dispatch)
     }
 }
 
 
 function mapStateToProps(state) {
     return {
-        ...state.AllVehicles,
+        ...state.AllAdditionalEquips,
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SliderComponent))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SliderComponentAE))

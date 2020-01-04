@@ -15,18 +15,19 @@ const booking=createLogic({
     },dispatch,done){
         let HTTPclient=api
 
-        debugger
+        // debugger
         console.log("payload check",action.payload)
 
         let obj={
             pickupDate : action.payload.startDate,
             returnDate:action.payload.endDate,
-            vehicleId :action.payload.vehicleId
+            vehicleId :action.payload.vehicleId,
+            equipmentId:action.payload.equipmentId
         }
 
         HTTPclient.post(endPoints.MAKE_BOOKING,obj)
             .then(resp=> {
-                debugger
+                // debugger
                 dispatch(bookingActions.bookingSuccess(resp.data))
             })
             .catch(err=>{
