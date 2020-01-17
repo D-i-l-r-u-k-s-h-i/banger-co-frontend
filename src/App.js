@@ -10,6 +10,7 @@ import 'react-rater/lib/react-rater.css'
 import SchedularModal from './components/schedular_modal';
 import ViewBookingsPage from './modules/view_bookings_page';
 import AdditionalEquipmentPage from './modules/additional_equipment_page';
+import AdminDashboard from './modules/admin_dashboard';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route index={1} exact ={true} path={'/bookings1'} component={ViewBookingsPage}/>
         <Route index={1} exact ={true} path={'/bookings2'} component={ViewBookingsPage}/>
         <Route index={1} exact ={true} path={'/aequipment'} component={AdditionalEquipmentPage}/>
+        <Route index={1} exact={true} path={'/admin'} component={AdminDashboard}/>
       </Switch>
     </Router>
   )

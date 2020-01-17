@@ -6,7 +6,8 @@ export class Loginpage extends Component {
     render() {
         return (
             <div>
-                <LoginComponent msg={"welcome user"}/>
+                <LoginComponent /> 
+                {/* msg={"welcome user"} */}
             </div>
         )
     }

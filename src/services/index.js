@@ -7,6 +7,7 @@ import ratingsService from './ratingsService'
 import getTimeSlotsService from './getTimeSlotsService'
 import getBookingService from './getBookingsService'
 import allAdditionalEquipsService from './allAdditionalEquipsService'
+import cancelBookingService from './cancelBookingSecvice'
 
 export default [
     ...signupService,
@@ -17,5 +18,6 @@ export default [
     ...ratingsService,
     ...getTimeSlotsService,
     ...getBookingService,
-    ...allAdditionalEquipsService
+    ...allAdditionalEquipsService,
+    ...cancelBookingService
 ]

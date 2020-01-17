@@ -1,24 +1,51 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { extendBookingActions,cancelBookingActions, cancelBookingItemActions} from '../actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { withRouter} from 'react-router-dom'
+export class Booking extends Component {
 
-function Booking(props) {
-  console.log(props)
-  const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = props.booking;
-  const { bookingStatusType } = props.booking.bookingStatus;
-  // let lengthLists=vehicleList && vehicleList.length+ additionalEquipmentList && additionalEquipmentList.length;
-  console.log(additionalEquipmentList && additionalEquipmentList.length + vehicleList && vehicleList.length) //this gives null
-
-  function listLength(){
-    var totLength=0
-    if(additionalEquipmentList){
-      totLength+=additionalEquipmentList.length
+  constructor(props) {
+    super(props);
+    this.state = {
+        bookingId:this.props.booking.bookingId,
+        vehicleId:null,
+        equipmentId:null
     }
-    if(vehicleList){
-      totLength+=vehicleList.length
+  }
+
+  listLength=()=>{
+    var totLength=0
+    if(this.props.booking.additionalEquipmentList){
+      totLength+=this.props.booking.additionalEquipmentList.length
+    }
+    if(this.props.booking.vehicleList){
+      totLength+=this.props.booking.vehicleList.length
     }
     return totLength;
   }
 
-  function content(){
+  onCancel=()=>{
+    this.props.cancelBookingActions.cancelBooking(this.state)
+  }
+
+  onExtend=()=>{
+    this.props.extendBookingActions.extendBooking(this.state)
+  }
+
+  onDeleteVehicleItem=(vehicleId)=>{
+    this.setState({vehicleId:vehicleId})
+    this.props.cancelBookingItemActions.cancelBookingItem(this.state)
+  }
+
+  onDeleteEquipmentItem=(equipId)=>{
+    this.setState({equipmentId:equipId})
+    this.props.cancelBookingItemActions.cancelBookingItem(this.state)
+  }
+
+  content(){
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = this.props.booking;
+    const { bookingStatusType } = this.props.booking.bookingStatus;
     return (
       <div className="media mb-3">
         <div className="media-body p-2 shadow-sm rounded bg-light border">
@@ -76,7 +103,9 @@ function Booking(props) {
       </div>
     );
   }
-  function contentPending () {
+  contentPending () {
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = this.props.booking;
+    const { bookingStatusType } = this.props.booking.bookingStatus;
     return (
       <div className="media mb-3">
         <div className="media-body p-2 shadow-sm rounded bg-light border">
@@ -97,7 +126,7 @@ function Booking(props) {
                         <td>
                           Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
                         </td>
-                        {listLength()>1 ? <td className="remove_icon"><button type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
+                        {this.listLength()>1 ? <td className="remove_icon"><button onClick={this.onDeleteVehicleItem(property.vehicle.vehicleId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
                       </tr>
                     </li>
                   </table>
@@ -119,7 +148,7 @@ function Booking(props) {
                         <td >
                           Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
                         </td>
-                        {listLength()>1 ? <td className="remove_icon"><button type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
+                        {this.listLength()>1 ? <td className="remove_icon"><button onClick={this.onDeleteEquipmentItem(property.equipment.equipmentId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
                       </tr>
                     </li>
                   </table>
@@ -133,16 +162,38 @@ function Booking(props) {
               <td>Rs.{total}.00</td>
             </tr>
           </table><br/>
-          {bookingStatusType==="PICKED_UP"?<div><button type="button" class="btn btn-info float-right">Extend Booking</button></div>:<div><button type="button" class="btn btn-info float-right">Extend Booking</button><button type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
+          {bookingStatusType==="PICKED_UP"?<div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div>:<div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
         </div>
       </div>
     );
   }
 
-  return (
-    <div>{bookingStatusType==="PENDING"||bookingStatusType==="PICKED_UP"?contentPending():content()}</div>
-  );
+
+  render() {
+    console.log(this.props)
+    const { bookingStatusType } = this.props.booking.bookingStatus;
+    return (
+      <div>
+        {bookingStatusType==="PENDING"||bookingStatusType==="PICKED_UP"?this.contentPending():this.content()}
+      </div>
+    )
+  }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+      extendBookingActions: bindActionCreators(extendBookingActions, dispatch),
+      cancelBookingActions: bindActionCreators(cancelBookingActions, dispatch),
+      cancelBookingItemActions:bindActionCreators(cancelBookingItemActions,dispatch)
+  }
+}
 
-export default Booking
+function mapStateToProps(state) {
+  return {
+      ...state.ExtendBooking,
+      ...state.CancelBooking,
+      ...state.CancelBookingItem
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Booking))

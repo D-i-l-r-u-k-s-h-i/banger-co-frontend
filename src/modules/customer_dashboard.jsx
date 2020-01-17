@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import CustomerDashboardComponent from '../components/customer_dashboard_component';
 import NavBarComponent from '../components/navbar_component';
+import SliderComponent from '../components/slider_component';
+import SliderComponentAE from '../components/slider_component_ae';
+import Footer from '../components/footer';
 
 export class CustomerDashboard extends Component {
     render() {
@@ -8,7 +10,9 @@ export class CustomerDashboard extends Component {
 
             <div className="body_container">
                 <NavBarComponent />
-                <CustomerDashboardComponent />
+                <SliderComponent/><br/>
+                <SliderComponentAE/>
+                <Footer/>
             </div>
 
         )

@@ -21,3 +21,9 @@ export const GET_PAST_BOOKINGS="/bookings/past"
 export const GET_CANCELLED_BOOKINGS="/bookings/cancelled"
 
 export const ALL_ADDITIONAL_EQUIPS="/aequips/"
+
+export const CANCEL_BOOKING="/bookings/cancel/"
+
+export const CANCEL_BOOKING_ITEM="/bookings/cancelitem"
+
+export const EXTEND_BOOKING="/bookings/extend/"

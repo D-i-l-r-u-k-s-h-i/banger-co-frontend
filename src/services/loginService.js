@@ -1,7 +1,7 @@
 import {createLogic} from 'redux-logic'
-
+import history from '../history'
 import {loginActions,loginTypes} from "../actions"
-// import jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import * as endPoints from './endpoints'
 import * as api from './HTTPclient'
 
@@ -15,7 +15,7 @@ const login=createLogic({
     },dispatch,done){
         let HTTPclient=api
 
-        debugger
+        // debugger
         console.log("payload check",action.payload)
 
         let obj={
@@ -25,15 +25,32 @@ const login=createLogic({
 
         HTTPclient.post(endPoints.LOGIN,obj)
             .then(resp=> {
-                debugger
+                // debugger
                 dispatch(loginActions.loginSuccess(resp.data))
                 return(resp.data)
             })
             .then(data => {
                 localStorage.setItem('jwt', data.accessToken);
-            
+                var decodedToken = jwtDecode(data.accessToken);
+
+                localStorage.setItem('jwt', data.accessToken);
+                var decodedToken = jwtDecode(data.accessToken);
+
+                var user=decodedToken.username
+                var roleId=decodedToken.role.roleId
+
+                localStorage.setItem('user', user);
+                localStorage.setItem('roleId',roleId)
+                
                 // Set token for subsequent calls
                 api.setAuth(); 
+                
+                if(roleId===1){
+                    history.push('/admin');
+                }
+                else if(roleId===2){
+                    history.push('/custdash')
+                }
                 
                 return data
             })

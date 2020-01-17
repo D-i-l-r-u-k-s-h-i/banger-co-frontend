@@ -9,6 +9,9 @@ import * as GetTimeSlots from './getTimeSlots'
 import * as GetCurrentBookings from './getCurrentBookings'
 import * as GetPastBookings from './getPastBookings'
 import * as AllAdditionalEquips from './allAdditionalEquips'
+import * as CancelBooking from './cancelBooking'
+import * as CancelBookingItem from './cancelBookingItem'
+import * as ExtendBooking from './extendBooking'
 
 
 //taken by reducer
@@ -56,10 +59,27 @@ export{
     AllAdditionalEquips as allAdditionalEquipTypes
 }
 
+export{
+    CancelBooking as cancelBookingTypes
+}
+
+export{
+    CancelBookingItem as cancelBookingItemTypes
+}
+
+export{
+    ExtendBooking as extendBookingTypes
+}
 
 
 //for the actions
 export const allAdditionalEquipsActions=AllAdditionalEquips.default;
+
+export const cancelBookingActions=CancelBooking.default;
+
+export const extendBookingActions=ExtendBooking.default;
+
+export const cancelBookingItemActions=CancelBookingItem.default;
 
 export const addReviewActions=AddReview.default;
 

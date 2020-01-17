@@ -37,13 +37,7 @@ export class LoginComponent extends Component {
         e.preventDefault();
         // debugger
         this.props.loginActions.login(this.state)
-        if(loginActions.loginSuccess){
-            this.props.history.push('/custdash');
-        }
-        // else if(loginActions.loginFail){
-        //     this.props.history.push('/login');
-        //     //display fail message
-        // }
+        
     }
 
     render() {
@@ -62,7 +56,7 @@ export class LoginComponent extends Component {
                     </FormGroup>
                     <Button className="btn-lg btn-dark btn-block" onClick={this.handleloginBtnClick} type="submit">Log in</Button>
                     <div className="text-center pt-3">Or continue with Google</div>
-                    <div>{this.props.msg}</div>
+                    {/* <div>{this.props.msg}</div> */}
                     <GoogleLoginButton className="mt-3 mb-3"/>
                     <div className="text-center">
                         <a href="/signup">Sign Up</a>

@@ -8,7 +8,7 @@ axios.defaults.headers.get["Content-Type"] = 'application/json'
 var instance = null;
 
 export const setAuth = () => {
-    if(localStorage.jwt==undefined){
+    if(localStorage.jwt===undefined){
         // debugger
         instance = axios.create({
             baseURL: '',

@@ -9,6 +9,9 @@ import getreviews from './getReviews'
 import gettimeslots from './getTimeSlots'
 import getbookings from './getBookings'
 import alladditionalequips from './allAdditionalEquips'
+import cancelbooking from './cancelBookong'
+import cancelBookongItem from './cancelBookingItem'
+import extendBooking from './extendBooking'
 
 const rootReducer=combineReducers({
     SignUp:signup,
@@ -20,7 +23,10 @@ const rootReducer=combineReducers({
     GetReviews:getreviews,
     GetTimeSlots:gettimeslots,
     GetBookings:getbookings,
-    AllAdditionalEquips:alladditionalequips
+    AllAdditionalEquips:alladditionalequips,
+    CancelBooking:cancelbooking,
+    CancelBookongItem:cancelBookongItem,
+    ExtendBooking:extendBooking
 })
 
 export default rootReducer;
