@@ -27,3 +27,5 @@ export const CANCEL_BOOKING="/bookings/cancel/"
 export const CANCEL_BOOKING_ITEM="/bookings/cancelitem"
 
 export const EXTEND_BOOKING="/bookings/extend/"
+
+export const GET_TODAYS_BOOKINGS="/bookings/today"

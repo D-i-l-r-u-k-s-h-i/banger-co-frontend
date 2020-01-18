@@ -32,6 +32,18 @@ p, div {
    }
 }
 
+.todaysbookings{
+  width:100%;
+  td:nth-child(1) {
+    width: 20%;
+    }
+  
+  /* the second */
+  td:nth-child(2) {
+    width: 80%;
+  }
+}
+
 .remove_icon{
   text-align: right;
 }
@@ -256,4 +268,20 @@ $i: 0;
     top: 0; 
     left: 0;
   }
+}
+
+.footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #3b4d64;
+  text-align: center;
+  color: white;
+}
+
+.aboutus{
+  text-align: justify;
+  margin-left: 10%;
 }

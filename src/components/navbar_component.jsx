@@ -37,6 +37,7 @@ function NavBarComponent() {
                         <NavDropdown.Item eventKey="4.4">Logout</NavDropdown.Item>
                     </LinkContainer>
                 </NavDropdown>
+                {localStorage.getItem("roleId") == 1 ? <Nav.Link href='/admin' >Dashboard</Nav.Link>: null}
             </Nav>
         )
     }
@@ -55,7 +56,6 @@ function NavBarComponent() {
                 <Navbar.Brand href="/custdash">&#127345;anger &#8523; &#8450;o</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/custdash">Home</Nav.Link>
-                    <Nav.Link href="#features">About</Nav.Link>
                 </Nav>
                {localStorage.getItem("jwt")?content():loginBtn()}
             </Navbar>

@@ -12,6 +12,7 @@ import * as AllAdditionalEquips from './allAdditionalEquips'
 import * as CancelBooking from './cancelBooking'
 import * as CancelBookingItem from './cancelBookingItem'
 import * as ExtendBooking from './extendBooking'
+import * as GetTodaysBookings from './todaysBookings'
 
 
 //taken by reducer
@@ -71,8 +72,14 @@ export{
     ExtendBooking as extendBookingTypes
 }
 
+export{
+    GetTodaysBookings as getTodaysBookingTypes
+}
+
 
 //for the actions
+export const getTodaysBookingActions=GetTodaysBookings.default;
+
 export const allAdditionalEquipsActions=AllAdditionalEquips.default;
 
 export const cancelBookingActions=CancelBooking.default;

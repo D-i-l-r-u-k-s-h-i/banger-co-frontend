@@ -1,4 +1,4 @@
-import {getCurrentBookingTypes,getPastBookingTypes} from '../actions'
+import {getCurrentBookingTypes,getPastBookingTypes,getTodaysBookingTypes} from '../actions'
 
 import {handleActions} from "redux-actions"
 
@@ -23,6 +23,15 @@ export default handleActions({
         ...state,loading:false,bookingData:payload
     }),
     [getPastBookingTypes.FAIL_GET_PAST_BOOKINGS]:(state,{payload})=>({
+        ...state,loading:false,bookingData:null
+    }),
+    [getTodaysBookingTypes.GET_TODAYS_BOOKINGS]:(state,{payload})=>({
+        ...state,loading:true
+    }),
+    [getTodaysBookingTypes.SUCCESS_GET_TODAYS_BOOKINGS]:(state,{payload})=>({
+        ...state,loading:false,bookingData:payload
+    }),
+    [getTodaysBookingTypes.FAIL_GET_TODAYS_BOOKINGS]:(state,{payload})=>({
         ...state,loading:false,bookingData:null
     }),
 },initialState)
