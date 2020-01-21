@@ -29,3 +29,11 @@ export const CANCEL_BOOKING_ITEM="/bookings/cancelitem"
 export const EXTEND_BOOKING="/bookings/extend/"
 
 export const GET_TODAYS_BOOKINGS="/bookings/today"
+
+export const VEHICLES_BOOKED_BY_USER="/bookings/pastvehicles"
+
+export const PICKUP_BOOKING="/bookings/pickup/"
+
+export const RETURN_BOOKING="/bookings/return/"
+
+export const BLACKLIST_USER="/bookings/blacklist/"

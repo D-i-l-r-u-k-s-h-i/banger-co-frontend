@@ -12,6 +12,7 @@ import alladditionalequips from './allAdditionalEquips'
 import cancelbooking from './cancelBookong'
 import cancelBookongItem from './cancelBookingItem'
 import extendBooking from './extendBooking'
+import handleBookings from './handleBookings'
 
 const rootReducer=combineReducers({
     SignUp:signup,
@@ -26,7 +27,8 @@ const rootReducer=combineReducers({
     AllAdditionalEquips:alladditionalequips,
     CancelBooking:cancelbooking,
     CancelBookongItem:cancelBookongItem,
-    ExtendBooking:extendBooking
+    ExtendBooking:extendBooking,
+    HandleBookings:handleBookings
 })
 
 export default rootReducer;

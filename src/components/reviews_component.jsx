@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReviewForm from './review_form';
 import ReviewList from './review_list';
 import { getReviewsActions } from '../actions'
 import { connect } from 'react-redux'
@@ -64,7 +63,7 @@ export class ReviewsComponent extends Component {
                             loading={this.state.loading}
                             reviews={this.state.reviewData}
                         /><br/>
-                        <ReviewForm />
+                        {/* <ReviewForm /> */}
                     </div>
                 </div>
             </div>

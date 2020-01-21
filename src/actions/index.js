@@ -13,6 +13,10 @@ import * as CancelBooking from './cancelBooking'
 import * as CancelBookingItem from './cancelBookingItem'
 import * as ExtendBooking from './extendBooking'
 import * as GetTodaysBookings from './todaysBookings'
+import * as VehiclesBookedByUser from './distinctVehiclesBookedByUser'
+import * as ConfirmPickup from './confirmPickup'
+import * as ConfirmReturn from './confirmReturn'
+import * as BlackListUser from './blacklistUser'
 
 
 //taken by reducer
@@ -76,13 +80,37 @@ export{
     GetTodaysBookings as getTodaysBookingTypes
 }
 
+export{
+    VehiclesBookedByUser as vehiclesBookedByUserTypes
+}
+
+export{
+    ConfirmPickup as confirmPickupTypes
+}
+
+export{
+    ConfirmReturn as confirmReturnTypes
+}
+
+export{
+    BlackListUser as blacklistUserTypes
+}
+
 
 //for the actions
+export const vehiclesBookedByUserActions=VehiclesBookedByUser.default;
+
 export const getTodaysBookingActions=GetTodaysBookings.default;
 
 export const allAdditionalEquipsActions=AllAdditionalEquips.default;
 
 export const cancelBookingActions=CancelBooking.default;
+
+export const confirmPickupActions=ConfirmPickup.default;
+
+export const confirmReturnActions=ConfirmReturn.default;
+
+export const blacklistUserActions=BlackListUser.default;
 
 export const extendBookingActions=ExtendBooking.default;
 

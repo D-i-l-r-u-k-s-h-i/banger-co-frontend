@@ -10,20 +10,11 @@ export class ReviewForm extends Component {
         this.state = {
             loading: false,
             review:null,
-            vehicleid:this.props.location.state.property.id,
+            vehicleid:this.props.props,
             reviewState:null,
             // error: ""
         };
     }
-
-    // static getDerivedStateFromProps(nextProps,prevState){
-    //     console.log(nextProps)
-    //     if(prevState.reviewState===null){
-    //         return{
-    //             reviewState: nextProps.ReviewData,
-    //         }
-    //     }else return null
-    // }
 
     handleFieldChange = (e) => {
         this.setState({
@@ -34,13 +25,6 @@ export class ReviewForm extends Component {
     onSubmit=(e)=> {
         // prevent default form submission
         e.preventDefault();
-        
-        // loading status and clear error
-        // this.setState({ error: "", loading: true });
-    
-        // persist the comments on server
-        console.log(this.props)
-        console.log(this.props.location.state.property)
        
         this.props.addReviewActions.addReview(this.state)
 
@@ -53,6 +37,7 @@ export class ReviewForm extends Component {
     // }
 
     render() {
+      console.log(this.props.props)
         return (
             <React.Fragment>
         <form onSubmit={this.onSubmit}>

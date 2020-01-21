@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { getCurrentBookingActions,getPastBookingActions } from '../actions'
+import { getCurrentBookingActions,getPastBookingActions,vehiclesBookedByUserActions } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import BookingList from './booking_list';
+import RateReviewCard from './rate_review_card';
 
 export class ViewBookingsComponent extends Component {
 
@@ -13,6 +14,7 @@ export class ViewBookingsComponent extends Component {
         this.state = {
             bookingData: [],
             booking:null,
+            vehicleData:null
         };
     }
 
@@ -22,6 +24,9 @@ export class ViewBookingsComponent extends Component {
         if (nextProps.bookingData && nextProps.bookingData !== prevState.bookingData) {
             newProps.bookingData = nextProps.bookingData
         }
+        if (nextProps.vehicleData && nextProps.vehicleData !== prevState.vehicleData) {
+            newProps.vehicleData = nextProps.vehicleData
+        }
         if (nextProps.location.hash && (nextProps.location.hash !== prevState.hash)) {
             return {
                 hash: nextProps.location.hash
@@ -30,6 +35,7 @@ export class ViewBookingsComponent extends Component {
         if(newProps.bookingData){
             return{
                 bookingData:newProps.bookingData,
+                // vehicleData:newProps.vehicleData,
                 booking: newProps.bookingData[0]
             }
         }
@@ -47,6 +53,7 @@ export class ViewBookingsComponent extends Component {
         }
         else if(option==="PAST"){
             this.props.getPastBookingActions.getPastBookings(this.state)
+            this.props.vehiclesBookedByUserActions.getVehiclesBookedByUser(this.state)
         }
     }
     //reusing the same component on update of props
@@ -60,20 +67,30 @@ export class ViewBookingsComponent extends Component {
             }
             else if(option==="PAST"){
                 this.props.getPastBookingActions.getPastBookings(this.state)
+                this.props.vehiclesBookedByUserActions.getVehiclesBookedByUser(this.state)
             }
         }
     }
 
     render() {
+        console.log(this.props.history.location.props.optionSelected)
+        const {vehicleData}=this.state;
         return (
-            <div className="form_container">
-                <div className="row">
-                    <div className="col-8  pt-3 bg-white">
-                        <BookingList
-                            // loading={this.state.loading}
-                            bookings={this.state.bookingData}
-                        /><br/>
+            <div className='bodycontainer'>
+                <div className="form_container">
+                    <div className="row">
+                        <div className="col-8  pt-3 bg-white">
+                            <BookingList
+                                // loading={this.state.loading}
+                                bookings={this.state.bookingData}
+                            /><br />
+                        </div>
                     </div>
+                </div>
+                <br/><hr></hr>
+                <div>
+                {this.props.location.props.optionSelected == "PAST" ?vehicleData && vehicleData.map(property => <RateReviewCard props={property}/>):null}
+                <hr/>
                 </div>
             </div>
         )
@@ -83,13 +100,15 @@ export class ViewBookingsComponent extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         getCurrentBookingActions: bindActionCreators(getCurrentBookingActions, dispatch),
-        getPastBookingActions: bindActionCreators(getPastBookingActions, dispatch)
+        getPastBookingActions: bindActionCreators(getPastBookingActions, dispatch),
+        vehiclesBookedByUserActions: bindActionCreators(vehiclesBookedByUserActions, dispatch)
     }
 }
 
 function mapStateToProps(state) {
     return {
         ...state.GetBookings,
+        ...state.AllVehicles
     }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewBookingsComponent))

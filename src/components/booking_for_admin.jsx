@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
-
+import {confirmPickupActions,confirmReturnActions,blacklistUserActions} from '../actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { withRouter} from 'react-router-dom'
 export class BookingForAdmin extends Component {
-    onReturn=()=>{
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            bookingData: null,
+            bookingId:this.props.booking.bookingId
+        };
+    }
+
+    onReturn=()=>{
+        this.props.confirmReturnActions.confirmReturn(this.state)
     }
 
     onPickup=()=>{
-
+        this.props.confirmPickupActions.confirmPickup(this.state)
     }
 
     onBlacklist=()=>{
-
+        this.props.blacklistUserActions.blacklistUser(this.state)
     }
 
     render() {
@@ -71,11 +83,26 @@ export class BookingForAdmin extends Component {
                         </tr>
                     </table>
                     {bookingStatusType==="PICKED_UP" && bookingStatusType!=="CANCELLED"?<div><button onClick={this.onReturn} type="button" class="btn btn-info float-right">Confirm Return</button></div>
-                    :bookingStatusType==="PENDING" && late ? <div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onPickup} type="button" class="btn btn-outline-primary float-right mr-2">Confirm Pickup</button></div>:<div><button onClick={this.onPickup} type="button" class="btn btn-secondary float-right">Confirm Pickup</button></div>}
+                    :bookingStatusType==="PICKED_UP" || bookingStatusType!=="CANCELLED"? null
+                    :bookingStatusType==="PENDING" && late ? <div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onPickup} type="button" class="btn btn-outline-primary float-right mr-2">Confirm Pickup</button></div>
+                    :<div><button onClick={this.onPickup} type="button" class="btn btn-secondary float-right">Confirm Pickup</button></div>}
                 </div>
             </div>
         );
     }
 }
+function mapDispatchToProps(dispatch) {
+    return {
+        confirmPickupActions: bindActionCreators(confirmPickupActions, dispatch),
+        confirmReturnActions:bindActionCreators(confirmReturnActions, dispatch),
+        blacklistUserActions:bindActionCreators(blacklistUserActions, dispatch)
+    }
+}
 
-export default BookingForAdmin
+function mapStateToProps(state) {
+    return {
+        ...state.HandleBookings,
+        
+    }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BookingForAdmin))

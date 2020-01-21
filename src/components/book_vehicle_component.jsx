@@ -3,7 +3,7 @@ import Rater from 'react-rater'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
-import { addRatingActions , getTimeSlotActions} from '../actions'
+import { getTimeSlotActions} from '../actions'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import SchedularModal from './schedular_modal';
 import ReviewsComponent from './reviews_component';
@@ -14,9 +14,7 @@ export class BookVehicleComponent extends Component {
         this.state = {
             loading: false,
             modalShow: false,
-            rating:null,
             vehicleid:this.props.props.location.state.property.id,
-            ratingState:null,
             timeSlots:[],
             timeslotData:props.timeslotData
         }
@@ -44,23 +42,6 @@ export class BookVehicleComponent extends Component {
         };
     }
 
-    handleRating=(e)=>{
-        // debugger
-        // const rate=e.target.value;
-        console.log(e.rating)
-
-        this.setState({
-            rating:e.rating
-        })
-    }
-
-    handleRateClick=()=>{
-        // debugger
-        if(this.state.rating!=null){
-            this.props.addRatingActions.addRating(this.state)
-        }
-        
-    }
     async componentDidMount(){
         this.setState({ loading: true });
         //to get specific details on non-available time slots
@@ -79,13 +60,6 @@ export class BookVehicleComponent extends Component {
 
         let modalClose = () => this.setState({ modalShow: false });
 
-        const timeslotArr=this.state.timeslotData;
-        console.log(timeslotArr)
-        // console.log(this.props.timeslotData)
-        // console.log(this.state.timeslotData)
-
-        const ratingg=this.props;
-
         return (
             <div>
                 <table >
@@ -93,12 +67,6 @@ export class BookVehicleComponent extends Component {
                         <td>
                             <div className="imgalign">
                                 <img src={property.vehicleImgLink} alt="img" /><hr />
-                                
-                                Rate your experience with this vehicle: <Rater total={5} interactive={true} rating={ratingg.rating}
-                                            // onRating={({rating}) => {this.handleRating(rating)}} 
-                                            onRate={this.handleRating} //({rating}) => {this.handleRating(rating)}
-                                            // onCancelRate={this.handleCancelRate}
-                                            onClick={this.handleRateClick}/>
                             </div>
                         </td>
                         <td>
@@ -131,7 +99,6 @@ export class BookVehicleComponent extends Component {
 
 function mapDispatchToProps (dispatch){
     return{
-        addRatingActions: bindActionCreators(addRatingActions,dispatch),
         getTimeSlotActions:bindActionCreators(getTimeSlotActions,dispatch)
     }
 }
@@ -139,7 +106,6 @@ function mapDispatchToProps (dispatch){
 
 function mapStateToProps (state){
     return{
-        ...state.AddRating,
         ...state.GetTimeSlots
     }
 }

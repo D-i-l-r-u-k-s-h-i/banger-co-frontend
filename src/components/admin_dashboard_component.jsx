@@ -5,7 +5,7 @@ import {
     Input,
     InputGroup,
     InputGroupAddon,
-    Row
+    Row,Card, CardTitle, CardText 
 } from "reactstrap";
 import TodaysBookingsComponent from './todays_bookings_component';
 
@@ -35,8 +35,12 @@ export class AdminDashboardComponent extends Component {
                                     <div className="btn-group-vertical">
                                         <button type="button" className="btn btn-lg btn-info">Vehicles</button>
                                         <button type="button" className="btn btn-lg btn-warning">Equipments</button>
-                                        <button type="button" className="btn btn-lg btn-primary">Handle Admins</button>
-                                        <button type="button" className="btn btn-lg btn-success">Late for pickup</button>
+                                        <button type="button" className="btn btn-lg btn-primary"><Card body color="primary">
+        <CardTitle>Handle Admins</CardTitle>
+        {/* <CardText>View or Add admin from here.</CardText> */}
+        <Button color="danger">Add</Button><Button>View</Button>
+      </Card></button>
+                                        {/* <button type="button" className="btn btn-lg btn-success">Late for pickup</button> */}
                                     </div>
                                 </td>
                             <td>
