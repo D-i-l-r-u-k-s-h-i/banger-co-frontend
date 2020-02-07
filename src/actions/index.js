@@ -17,6 +17,9 @@ import * as VehiclesBookedByUser from './distinctVehiclesBookedByUser'
 import * as ConfirmPickup from './confirmPickup'
 import * as ConfirmReturn from './confirmReturn'
 import * as BlackListUser from './blacklistUser'
+import * as DeleteVehicle from './deleteVehicle'
+import * as AddVehicle from './addVehicle'
+import * as UpdateVehicle from './updateVehicle'
 
 
 //taken by reducer
@@ -96,6 +99,17 @@ export{
     BlackListUser as blacklistUserTypes
 }
 
+export{
+    DeleteVehicle as deleteVehicleTypes
+}
+
+export{
+    AddVehicle as addVehicleTypes
+}
+
+export{
+    UpdateVehicle as updateVehicleTypes
+}
 
 //for the actions
 export const vehiclesBookedByUserActions=VehiclesBookedByUser.default;
@@ -116,7 +130,13 @@ export const extendBookingActions=ExtendBooking.default;
 
 export const cancelBookingItemActions=CancelBookingItem.default;
 
+export const deleteVehicleActions=DeleteVehicle.default;
+
 export const addReviewActions=AddReview.default;
+
+export const addVehicleActions=AddVehicle.default;
+
+export const updateVehicleActions=UpdateVehicle.default;
 
 export const getPastBookingActions=GetPastBookings.default;
 

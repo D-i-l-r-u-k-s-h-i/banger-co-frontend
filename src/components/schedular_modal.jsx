@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { bookingActions } from '../actions'
 import "react-datepicker/dist/react-datepicker.css";
+import { Alert } from 'reactstrap'
 
 export class SchedularModal extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ export class SchedularModal extends Component {
             type:'',
             vehicleId: null, //to send in the request body when saving booking
             equipmentId:null,
+            visible:false,
             id:null  //common for both vehicle and equips for getting timeslots
         }
     }
@@ -105,9 +107,19 @@ export class SchedularModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({
+            visible:true
+        })
         //fire action to save booking details
         this.props.bookingActions.booking(this.state)
         // this.props.onHide
+    }
+
+    onDismiss = () =>{
+        this.setState({
+            visible:false
+        })
+        this.props.onHide()
     }
 
     render() {
@@ -158,6 +170,9 @@ export class SchedularModal extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleSubmit} type='submit'>Make Booking</Button>
+                        <Alert color="warning" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        {this.props.makeBookingData}
+                    </Alert>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -174,7 +189,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        ...state.Booking,
+        ...state.MakeBooking,
     }
 }
 

@@ -132,23 +132,23 @@ td{
 }
 
 @media (min-width: 768px) {
-  .app-card {
+  .app-cardd {
     width: 350px;
     position: relative;
     left: 700px;
   }
 }
 
-.app-card .app-card-header-inner {
+.app-cardd .app-cardd-header-inner {
   padding: 10px 20px;
 }
 
-.app-card .app-card-content .app-card-content-inner {
+.app-cardd .app-cardd-content .app-cardd-content-inner {
   padding: 20px;
 }
 
-.app-card-content .app-card-content-inner,
-.app-card-content .app-card-content-inner {
+.app-cardd-content .app-cardd-content-inner,
+.app-cardd-content .app-cardd-content-inner {
   padding: 40px;
 }
 body{
@@ -162,7 +162,7 @@ section {
 /* #endregion */
 /* #region Card */
 /* Card */
-.card {
+.cardd {
   border: 3px #f3f3f3 solid;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.3s linear;
@@ -208,7 +208,7 @@ section {
   display: flex;
   position: absolute;
   transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  .card {
+  .cardd {
     flex: 1;
     min-width: 200px;
     opacity: 0.7;
@@ -226,7 +226,7 @@ section {
 
 $i: 0;
 @for $i from 0 through 29 {
-    .cards-slider.active-slide-#{$i} #card-#{$i} {
+    .cards-slider.active-slide-#{$i} #cardd-#{$i} {
       opacity: 1;
       transform: scale(1.5);
       background-color: #f3f3f3;
@@ -291,4 +291,43 @@ $i: 0;
 .aboutus{
   text-align: justify;
   margin-left: 10%;
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -15px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 15px; /* gutter size */
+  background-clip: padding-box;
+}
+ 
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+  .my-masonry-grid {
+    margin-left: -15px; /* gutter size offset */
+  }
+  .my-masonry-grid_column {
+    padding-left: 15px; /* gutter size offset */
+  }
+  .my-masonry-grid_column > div {
+    margin-bottom: 15px; /* space between items */
+  }
+}
+
+.btn-circle.btn-xl { 
+  width: 70px; 
+  height: 70px; 
+  padding: 10px 16px; 
+  border-radius: 35px; 
+  font-size: 12px; 
+  text-align: center; 
 }

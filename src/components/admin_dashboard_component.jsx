@@ -8,6 +8,7 @@ import {
     Row,Card, CardTitle, CardText 
 } from "reactstrap";
 import TodaysBookingsComponent from './todays_bookings_component';
+import { Link } from 'react-router-dom'
 
 export class AdminDashboardComponent extends Component {
     render() {
@@ -33,8 +34,20 @@ export class AdminDashboardComponent extends Component {
                         <tr>
                                 <td>
                                     <div className="btn-group-vertical">
-                                        <button type="button" className="btn btn-lg btn-info">Vehicles</button>
-                                        <button type="button" className="btn btn-lg btn-warning">Equipments</button>
+                                <Link to={{
+                                    pathname: '/managevehicles',
+                                }}
+                                    id="submit"
+                                    type="button"
+                                    className="btn btn-lg btn-info"
+                                >Vehicles</Link>
+                                <Link to={{
+                                    pathname: '/manageaequips',
+                                }}
+                                    id="submit"
+                                    type="button"
+                                    className="btn btn-lg btn-warning"
+                                >Equipments</Link>    
                                         <button type="button" className="btn btn-lg btn-primary"><Card body color="primary">
         <CardTitle>Handle Admins</CardTitle>
         {/* <CardText>View or Add admin from here.</CardText> */}

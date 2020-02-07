@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import { addReviewActions } from '../actions'
+import { Alert } from 'reactstrap'
 
 export class ReviewForm extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ export class ReviewForm extends Component {
             review:null,
             vehicleid:this.props.props,
             reviewState:null,
+            visible:false,
             // error: ""
         };
     }
@@ -25,11 +27,19 @@ export class ReviewForm extends Component {
     onSubmit=(e)=> {
         // prevent default form submission
         e.preventDefault();
-       
+        this.setState({
+          visible:true
+      })
         this.props.addReviewActions.addReview(this.state)
 
     }
     
+    onDismiss = () =>{
+      this.setState({
+          visible:false
+      })
+  }
+
     // renderError() {
     //     return this.state.error ? (
     //       <div className="alert alert-danger">{this.state.error}</div>
@@ -48,16 +58,18 @@ export class ReviewForm extends Component {
               className="form-control"
               placeholder="Add your thoughts about the vehicle ride here"
               name="message"
-              rows="4"
+              rows="2"
             />
           </div>
 
           {/* {this.renderError()} */}
 
           <div className="form-group">
-            <button className="btn btn-primary" disabled={this.state.loading}>{/*disabled={this.state.loading*/}
+            <span><button className="btn btn-primary btn-sm" disabled={this.state.loading}>{/*disabled={this.state.loading*/}
               Comment &#10148;
-            </button>
+            </button><Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        Thank you For your Review! {this.props.ReviewData}
+                    </Alert></span>
           </div>
         </form>
       </React.Fragment>

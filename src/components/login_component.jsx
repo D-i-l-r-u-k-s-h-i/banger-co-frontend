@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import { loginActions } from '../actions'
+import { Alert } from 'reactstrap'
 
 export class LoginComponent extends Component {
     constructor(props){
@@ -12,7 +13,8 @@ export class LoginComponent extends Component {
         this.state={
             uname:null,
             pass:null,
-            loginState:null
+            loginState:null,
+            visible:false,
         }
     }
 
@@ -35,12 +37,22 @@ export class LoginComponent extends Component {
 
     handleloginBtnClick=(e)=>{
         e.preventDefault();
+        this.setState({
+            visible:true
+        })
         // debugger
         this.props.loginActions.login(this.state)
         
     }
 
+    onDismiss = () =>{
+        this.setState({
+            visible:false
+        })
+    }
+
     render() {
+        console.log(this.props.loginData)
         return (
             <div>
                 <Form className="login-form">
@@ -56,7 +68,9 @@ export class LoginComponent extends Component {
                     </FormGroup>
                     <Button className="btn-lg btn-dark btn-block" onClick={this.handleloginBtnClick} type="submit">Log in</Button>
                     <div className="text-center pt-3">Or continue with Google</div>
-                    {/* <div>{this.props.msg}</div> */}
+                    <Alert color="warning" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        {this.props.loginData}
+                    </Alert>
                     <GoogleLoginButton className="mt-3 mb-3"/>
                     <div className="text-center">
                         <a href="/signup">Sign Up</a>
@@ -77,7 +91,7 @@ function mapDispatchToProps (dispatch){
 
 function mapStateToProps (state){
     return{
-        ...state.login,
+        ...state.Login,
     }
 }
 

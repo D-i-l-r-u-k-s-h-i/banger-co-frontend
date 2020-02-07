@@ -27,7 +27,7 @@ const booking=createLogic({
 
         HTTPclient.post(endPoints.MAKE_BOOKING,obj)
             .then(resp=> {
-                // debugger
+                console.log(resp.data)
                 dispatch(bookingActions.bookingSuccess(resp.data))
             })
             .catch(err=>{
@@ -35,7 +35,7 @@ const booking=createLogic({
                 if (err && err.code === "ECONNABORTED") {
                     errormsg = "Please check your internet connection.";
                 }
-                dispatch(bookingActions.bookingUpFail(errormsg))
+                dispatch(bookingActions.bookingFail(errormsg))
             }).then(()=>done());
         
     }

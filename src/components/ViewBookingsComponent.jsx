@@ -55,6 +55,10 @@ export class ViewBookingsComponent extends Component {
             this.props.getPastBookingActions.getPastBookings(this.state)
             this.props.vehiclesBookedByUserActions.getVehiclesBookedByUser(this.state)
         }
+
+        window.onbeforeunload = function () {
+            return false;
+        }
     }
     //reusing the same component on update of props
     componentDidUpdate(prevProps){
@@ -73,7 +77,7 @@ export class ViewBookingsComponent extends Component {
     }
 
     render() {
-        console.log(this.props.history.location.props.optionSelected)
+        // console.log(this.props.history.location.props.optionSelected)
         const {vehicleData}=this.state;
         return (
             <div className='bodycontainer'>
@@ -89,7 +93,7 @@ export class ViewBookingsComponent extends Component {
                 </div>
                 <br/><hr></hr>
                 <div>
-                {this.props.location.props.optionSelected == "PAST" ?vehicleData && vehicleData.map(property => <RateReviewCard props={property}/>):null}
+                {this.props.location.props !=undefined && this.props.location.props.optionSelected == "PAST" ?vehicleData && vehicleData.map(property => <RateReviewCard props={property}/>):null}
                 <hr/>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import { Card, CardTitle, CardText ,Alert} from 'reactstrap';
 import Rater from 'react-rater'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -13,6 +13,7 @@ export class RateReviewCard extends Component {
         this.state = {
             vehicleid:this.props.props.id,
             rating:null,
+            visible:false,
             // equipmentId:null
         }
     }
@@ -27,31 +28,45 @@ export class RateReviewCard extends Component {
     handleRateClick=()=>{
         // debugger
         if(this.state.rating!=null){
+            this.setState({
+                visible:true
+            })
             this.props.addRatingActions.addRating(this.state)
         }
         
     }
 
+    onDismiss = () =>{
+        this.setState({
+            visible:false
+        })
+    }
+
     render() {
         const ratingg=this.props;
-        console.log(this.props.props.id)
+        console.log(this.props.RatingData)
         return (
             <div>
                 <Card body outline color="warning" >
-                    <CardTitle>{this.props.props.vehicleName}</CardTitle>
+                    <CardTitle className="font-weight-bolder">{this.props.props.vehicleName}</CardTitle>
                     <CardText>{this.props.props.gearboxType} & {this.props.props.fuelType}</CardText>
-                    
-                    Rate your experience: <Rater total={5} interactive={true} rating={ratingg.rating}
-                                            // onRating={({rating}) => {this.handleRating(rating)}} 
-                                            onRate={this.handleRating} //({rating}) => {this.handleRating(rating)}
-                                            // onCancelRate={this.handleCancelRate}
-                                            onClick={this.handleRateClick}/><br/>
-                                            
+
+                    <span>Rate your experience: <Rater total={5} interactive={true} rating={ratingg.rating}
+                        // onRating={({rating}) => {this.handleRating(rating)}} 
+                        onRate={this.handleRating} //({rating}) => {this.handleRating(rating)}
+                        // onCancelRate={this.handleCancelRate}
+                        onClick={this.handleRateClick} /><br />
+                        <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        Thank you For your rating! {this.props.RatingData}
+                    </Alert>
+                    <div className="badge badge-warning text-wrap">
+                        Leave a review here</div></span>
                     <CardText>
-                        <ReviewForm props={this.props.props.id}/>
+                        <ReviewForm props={this.props.props.id} />
                     </CardText>
-                    <Button color="secondary">Leave a review here</Button>
-                </Card>           
+
+                </Card>
+                <br />
             </div>
         )
     }

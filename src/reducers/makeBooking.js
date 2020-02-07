@@ -3,7 +3,7 @@ import {bookingTypes} from '../actions'
 import {handleActions} from "redux-actions"
 
 const initialState={
-    BookingData:null
+    makeBookingData:null
 }
 
 export default handleActions({
@@ -11,9 +11,9 @@ export default handleActions({
         ...state,loading:true
     }),
     [bookingTypes.SUCCESS_BOOKING]:(state,{payload})=>({
-        ...state,loading:false,BookingData:payload
+        ...state,loading:false,makeBookingData:payload
     }),
     [bookingTypes.FAIL_BOOKING]:(state,{payload})=>({
-        ...state,loading:false,BookingData:null
+        ...state,loading:false,makeBookingData:null
     }),
 },initialState)

@@ -11,6 +11,8 @@ import SchedularModal from './components/schedular_modal';
 import ViewBookingsPage from './modules/view_bookings_page';
 import AdditionalEquipmentPage from './modules/additional_equipment_page';
 import AdminDashboard from './modules/admin_dashboard';
+import EditVehiclesPage from './modules/edit_vehicles_page';
+import EditEquipmentsPage from './modules/edit_equipments_page';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
         <Route index={1} exact ={true} path={'/bookings2'} component={ViewBookingsPage}/>
         <Route index={1} exact ={true} path={'/aequipment'} component={AdditionalEquipmentPage}/>
         <Route index={1} exact={true} path={'/admin'} component={AdminDashboard}/>
+        <Route index={1} exact={true} path={'/managevehicles'} component={EditVehiclesPage}/>
+        <Route index={1} exact={true} path={'/manageaequips'} component={EditEquipmentsPage}/>
       </Switch>
     </Router>
   )

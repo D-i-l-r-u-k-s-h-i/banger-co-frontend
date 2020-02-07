@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const CardAE=({property})=>{
     const {index, imgLink, aeRentalPrice, equipmentName, type} = property; //,description
     return (
-        <div id={`card-${index}`} className="card">
+        <div id={`cardd-${index}`} className="cardd">
             <img src={imgLink} alt={equipmentName} /><hr/>
             <div className="details">
                 <span className="index">{index+1}</span>

@@ -3,6 +3,7 @@ import { extendBookingActions,cancelBookingActions, cancelBookingItemActions} fr
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
+import { Alert } from 'reactstrap'
 export class Booking extends Component {
 
   constructor(props) {
@@ -10,7 +11,9 @@ export class Booking extends Component {
     this.state = {
         bookingId:this.props.booking.bookingId,
         vehicleId:null,
-        equipmentId:null
+        equipmentId:null,
+        visible:false,
+        visible2:false,
     }
   }
 
@@ -26,21 +29,47 @@ export class Booking extends Component {
   }
 
   onCancel=()=>{
+    this.setState({
+      visible2: true
+    })
     this.props.cancelBookingActions.cancelBooking(this.state)
   }
 
   onExtend=()=>{
+    this.setState({
+      visible: true
+    })
     this.props.extendBookingActions.extendBooking(this.state)
   }
 
+  onDismiss = () =>{
+    this.setState({
+        visible:false
+    })
+  }
+
+  onDismiss2 = () =>{
+    this.setState({
+        visible2:false
+    })
+  }
+
   onDeleteVehicleItem=(vehicleId)=>{
-    this.setState({vehicleId:vehicleId})
-    this.props.cancelBookingItemActions.cancelBookingItem(this.state)
+    console.log(vehicleId)
+    let obj={
+      vehicleId:vehicleId,
+      bookingId:this.props.booking.bookingId
+    }
+    
+    this.props.cancelBookingItemActions.cancelBookingItem(obj)
   }
 
   onDeleteEquipmentItem=(equipId)=>{
-    this.setState({equipmentId:equipId})
-    this.props.cancelBookingItemActions.cancelBookingItem(this.state)
+    let obj={
+      equipmentId:equipId,
+      bookingId:this.props.booking.bookingId
+    }
+    this.props.cancelBookingItemActions.cancelBookingItem(obj)
   }
 
   content(){
@@ -107,63 +136,72 @@ export class Booking extends Component {
     const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
     return (
-      <div className="media mb-3">
-        <div className="media-body p-2 shadow-sm rounded bg-light border">
-          <small className="float-right text-muted">{bookingStatusType}</small>
-          Rental Period: {rentalPeriod}hrs<br />
-          Pickup Date: {pickupDate}<br />
-          Return Date: {returnDate}<br />
-          <ul>
-            {
-              vehicleList && vehicleList.map((property, index) => {
-                return (
-                  <table className="list_table">
-                    <li key={index} >
-                      <tr>
-                        <td >
-                          <h6 className="mt-0 mb-1 text-muted">{property.vehicle.vehicleName}</h6>
-                        </td>
-                        <td>
-                          Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
-                        </td>
-                        {this.listLength()>1 ? <td className="remove_icon"><button onClick={this.onDeleteVehicleItem(property.vehicle.vehicleId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
-                      </tr>
-                    </li>
-                  </table>
-                )
-              })
-            }
-          </ul>
-          <ul>
-            {
-              additionalEquipmentList && additionalEquipmentList.map((property, index) => {
-                return (
-                  <table className="list_table">
-                    <li key={index} >
-                      <tr>
-                        <td>
-                          <h6 className="mt-0 mb-1 text-muted">{property.equipment.equipmentName}</h6>
-                          
-                        </td>
-                        <td >
-                          Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
-                        </td>
-                        {this.listLength()>1 ? <td className="remove_icon"><button onClick={this.onDeleteEquipmentItem(property.equipment.equipmentId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td>:null}
-                      </tr>
-                    </li>
-                  </table>
-                )
-              })
-            }
-          </ul><hr />
-          <table className="list_table">
-            <tr>
-              <td>Total:</td>
-              <td>Rs.{total}.00</td>
-            </tr>
-          </table><br/>
-          {bookingStatusType==="PICKED_UP"?<div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div>:<div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
+      <div>
+        <div className="media mb-3">
+          <div className="media-body p-2 shadow-sm rounded bg-light border">
+            <small className="float-right text-muted">{bookingStatusType}</small>
+            Rental Period: {rentalPeriod}hrs<br />
+            Pickup Date: {pickupDate}<br />
+            Return Date: {returnDate}<br />
+            <ul>
+              {
+                vehicleList && vehicleList.map((property, index) => {
+                  return (
+                    <table className="list_table">
+                      <li key={index} >
+                        <tr>
+                          <td >
+                            <h6 className="mt-0 mb-1 text-muted">{property.vehicle.vehicleName}</h6>
+                          </td>
+                          <td>
+                            Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
+                          </td>
+                          {this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteVehicleItem(property.vehicle.vehicleId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
+                        </tr>
+                      </li>
+                    </table>
+                  )
+                })
+              }
+            </ul>
+            <ul>
+              {
+                additionalEquipmentList && additionalEquipmentList.map((property, index) => {
+                  return (
+                    <table className="list_table">
+                      <li key={index} >
+                        <tr>
+                          <td>
+                            <h6 className="mt-0 mb-1 text-muted">{property.equipment.equipmentName}</h6>
+
+                          </td>
+                          <td >
+                            Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
+                          </td>
+                          {this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteEquipmentItem(property.equipment.equipmentId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
+                        </tr>
+                      </li>
+                    </table>
+                  )
+                })
+              }
+            </ul><hr />
+            <table className="list_table">
+              <tr>
+                <td>Total:</td>
+                <td>Rs.{total}.00</td>
+              </tr>
+            </table><br />
+            {bookingStatusType === "PICKED_UP" ? <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div> : <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
+            <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+              {this.props.BookingData == false ? "Booking could not be extended" : "Booking was extended successfully until 4.00pm"}
+            </Alert>
+          </div>
+          <br />
         </div>
+        <Alert color="success" isOpen={this.state.visible2} toggle={this.onDismiss2}>
+          Booking Was Cancelled
+                    </Alert>
       </div>
     );
   }
@@ -191,8 +229,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
       ...state.ExtendBooking,
-      ...state.CancelBooking,
-      ...state.CancelBookingItem
+      ...state.GetBookings,
+      // ...state.CancelBookingItem
   }
 }
 

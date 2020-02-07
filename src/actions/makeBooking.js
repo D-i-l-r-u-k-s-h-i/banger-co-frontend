@@ -7,6 +7,6 @@ export const FAIL_BOOKING="FAIL_BOOKING";
 export default {
     booking:createAction(BOOKING),
     bookingSuccess:createAction(SUCCESS_BOOKING),
-    bookingUpFail:createAction(FAIL_BOOKING)
+    bookingFail:createAction(FAIL_BOOKING)
 
 }

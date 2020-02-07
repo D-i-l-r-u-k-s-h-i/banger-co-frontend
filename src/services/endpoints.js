@@ -37,3 +37,9 @@ export const PICKUP_BOOKING="/bookings/pickup/"
 export const RETURN_BOOKING="/bookings/return/"
 
 export const BLACKLIST_USER="/bookings/blacklist/"
+
+export const DELETE_VEHICLE="/vehicle/delete/"
+
+export const UPDATE_VEHICLE="/vehicle/update"
+
+export const ADD_VEHICLE="/vehicle/save"

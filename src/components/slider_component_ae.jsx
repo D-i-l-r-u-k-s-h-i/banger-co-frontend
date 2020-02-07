@@ -98,7 +98,7 @@ export class SliderComponentAE extends Component {
                     </div>
                 </div>
             </div>
-            <br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <section>
                     <div className="center">
                     <Link to={{

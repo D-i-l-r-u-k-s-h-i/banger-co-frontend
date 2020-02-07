@@ -9,8 +9,6 @@ import getreviews from './getReviews'
 import gettimeslots from './getTimeSlots'
 import getbookings from './getBookings'
 import alladditionalequips from './allAdditionalEquips'
-import cancelbooking from './cancelBookong'
-import cancelBookongItem from './cancelBookingItem'
 import extendBooking from './extendBooking'
 import handleBookings from './handleBookings'
 
@@ -25,8 +23,6 @@ const rootReducer=combineReducers({
     GetTimeSlots:gettimeslots,
     GetBookings:getbookings,
     AllAdditionalEquips:alladditionalequips,
-    CancelBooking:cancelbooking,
-    CancelBookongItem:cancelBookongItem,
     ExtendBooking:extendBooking,
     HandleBookings:handleBookings
 })

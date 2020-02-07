@@ -5,7 +5,7 @@ import Rater from 'react-rater'
 const Card = ({property}) => {
     const {index, vehicleImgLink, vehicleRentalPrice, vehicleName, vehicleType,vehicleRating,gearboxType,fuelType} = property;
     return (
-        <div id={`card-${index}`} className="card">
+        <div id={`cardd-${index}`} className="cardd">
             <img src={vehicleImgLink} alt={vehicleName} /><hr/>
             <div className="details">
                 <span className="index">{index+1}</span>

@@ -26,6 +26,7 @@ const login=createLogic({
         HTTPclient.post(endPoints.LOGIN,obj)
             .then(resp=> {
                 // debugger
+                console.log(resp.data)
                 dispatch(loginActions.loginSuccess(resp.data))
                 return(resp.data)
             })

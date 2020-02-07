@@ -1,0 +1,124 @@
+import React, { Component } from 'react'
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+  } from 'reactstrap';
+  import Masonry from 'react-masonry-css'
+  import { allVehicleActions,deleteVehicleActions} from '../actions'
+  import { connect } from 'react-redux'
+  import { bindActionCreators } from 'redux'
+  import { withRouter} from 'react-router-dom'
+import ConfirmDeleteModal  from './confirmDeleteModal';
+import AddVehicleModal from './addVehicleModal';
+import UpdateVehicleModal from './updateVehicleModal';
+
+export class EditRemoveVehiclesComponent extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            vehicleData:null,
+            modalShow: false, 
+            editModalShow: false,
+            addVehiclesModalShow: false,
+            vehicle:null
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        // console.log(nextProps)
+        let newProps={}
+        if (nextProps.vehicleData && nextProps.vehicleData !== prevState.vehicleData) {
+            newProps.vehicleData = nextProps.vehicleData
+        }
+        if (nextProps.location.hash && (nextProps.location.hash !== prevState.hash)) {
+            return {
+                hash: nextProps.location.hash
+            }
+        }
+        if(newProps.vehicleData){
+            return{
+               loaded: true,
+               vehicleData:newProps.vehicleData,
+               property: newProps.vehicleData[0]
+            }
+        }
+        // console.log(newProps)
+        return {
+            ...newProps
+        };
+    }
+
+
+    componentDidMount(){
+        this.props.allVehicleActions.allVehicles(this.state)
+    }
+
+    render() {
+        let modalClose = () => this.setState({ modalShow: false });
+        let editModalClose = () => this.setState({ editModalShow: false });
+        let addVehicleModalClose = () => this.setState({ addVehiclesModalShow: false });
+
+        const { vehicleData}=this.state
+        console.log(vehicleData)
+
+        const breakpointColumnsObj = {
+            default: 4,
+            1100: 3,
+            700: 2,
+            500: 1
+        };
+
+        let vehicles=vehicleData && vehicleData.map((vehicle) =>{
+            return <div key={vehicle.id}>
+               <Card>
+                    <CardImg top width="100%" src={vehicle.vehicleImgLink} />
+                    <CardBody>
+                        <CardTitle className="font-weight-bold">{vehicle.vehicleName}</CardTitle>
+                        <CardSubtitle>Gearbox Type: {vehicle.gearboxType}</CardSubtitle>
+                        <CardText className="text-muted">FuelType: {vehicle.fuelType}</CardText>
+                        <CardText className="font-weight-normal">Type: {vehicle.vehicleType}</CardText>
+                        <CardText className="font-weight-normal">Per hour Rate: Rs.{vehicle.vehicleRentalPrice}.00</CardText>
+                        <Button onClick={() => this.setState({ editModalShow: true ,vehicle:vehicle})} className="btn btn-info ml-1 float-right">Edit</Button>
+                        <Button onClick={() => this.setState({ modalShow: true ,vehicle:vehicle})} className="btn btn-danger float-right">Remove</Button>
+                    </CardBody>
+                </Card>
+                
+            </div>
+        })
+
+        return (
+            <div className="bodycontainer">
+                <button type="button" className="btn btn-primary btn-circle btn-xl" onClick={() => this.setState({ addVehiclesModalShow: true })}>
+                    &#43; Vehicle</button>
+                <br/><hr/>
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="my-masonry-grid"
+                    columnClassName="my-masonry-grid_column">
+                    {/* array of JSX items */}
+                    {vehicles}
+                </Masonry>
+                
+                <ConfirmDeleteModal show={this.state.modalShow} onHide={modalClose} props={this.state.vehicle}/> 
+                <AddVehicleModal show={this.state.addVehiclesModalShow} onHide={addVehicleModalClose} props={this.state.vehicle}/> 
+                <UpdateVehicleModal show={this.state.editModalShow} onHide={editModalClose} props={this.state.vehicle}/>
+            </div>
+        )
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        allVehicleActions: bindActionCreators(allVehicleActions, dispatch),
+        deleteVehicleActions:bindActionCreators(deleteVehicleActions, dispatch),
+    }
+}
+
+
+function mapStateToProps(state) {
+    return {
+        ...state.AllVehicles,
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)( EditRemoveVehiclesComponent))
