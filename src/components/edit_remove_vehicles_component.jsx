@@ -71,7 +71,7 @@ export class EditRemoveVehiclesComponent extends Component {
         let vehicles=vehicleData && vehicleData.map((vehicle) =>{
             return <div key={vehicle.id}>
                <Card>
-                    <CardImg top width="100%" src={vehicle.vehicleImgLink} />
+                    <CardImg top width="100%" src={`data:image/png;base64,${vehicle.imgFile}`}/>
                     <CardBody>
                         <CardTitle className="font-weight-bold">{vehicle.vehicleName}</CardTitle>
                         <CardSubtitle>Gearbox Type: {vehicle.gearboxType}</CardSubtitle>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
 import { Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -12,10 +12,11 @@ export class AddVehiclemodal extends Component {
         this.state={ 
             name:null,
             price:null,
-            gearbox:null,
-            fueltype:null,
+            gearbox:"Auto",
+            fueltype:"Petrol",
             type:null,
-            img:null,
+            image:null,
+            selectedFile:null
         }
     }
 
@@ -38,14 +39,41 @@ export class AddVehiclemodal extends Component {
         this.setState({gearbox:e.target.value})
     }
 
-    handleUrl=(e)=>{
-        this.setState({img:e.target.value})
+    fileChangeHandler = (event) => {
+        console.log(event.target.files)
+        
+        this.setState({
+            selectedFile: event.target.files[0]
+        });
+
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = () => {
+            this.setState({image: reader.result});
+        };
     }
+
+    // handleUrl=(e)=>{
+    //     this.setState({img:e.target.value})
+    // }
 
     handleAddBtnClick=(e)=>{
         e.preventDefault();
+        let{selectedFile, image,name, gearbox,fueltype,type,price}=this.state
+        
+        const data = new FormData() 
+        data.append('imgFile', selectedFile,selectedFile.name)
+        
+        data.append('b64image',image)
 
-        this.props.addVehicleActions.addVehicle(this.state)
+        data.append('vehicleName',name)
+        data.append('vehicleRentalPrice',price)
+        data.append('vehicleType', type) 
+        data.append('gearboxType', gearbox)
+        data.append('fuelType', fueltype)
+        // data.append('category', category)
+
+        this.props.addVehicleActions.addVehicle(data)
         this.props.onHide()
     }
 
@@ -69,18 +97,18 @@ export class AddVehiclemodal extends Component {
                             <h2 className="text-center">Add Vehicle</h2><hr />
                             <FormGroup>
                                 <Label>Vehicle Name</Label>
-                                <Input onChange={this.handleVehicleName} type="text" placeholder="Vehicle Name" />
+                                <Input onChange={this.handleVehicleName} name="vehicleName" type="text" placeholder="Vehicle Name" />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleSelect">GearBox Type</Label>
-                                <Input value={this.state.gearbox} onChange={this.handleGearboxChange} type="select" name="select" id="exampleSelect">
+                                <Label for="exampleSelect1">GearBox Type</Label>
+                                <Input value={this.state.gearbox} onChange={this.handleGearboxChange} type="select" name="gearboxType" id="exampleSelect1">
                                     <option>Auto</option>
                                     <option>Manual</option>
                                 </Input>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleSelect">Select Fuel Type</Label>
-                                <Input value={this.state.fueltype} onChange={this.handleFuelChange} type="select" name="select" id="exampleSelect">
+                                <Label for="exampleSelect2">Select Fuel Type</Label>
+                                <Input value={this.state.fueltype} onChange={this.handleFuelChange} type="select" name="fuelType" id="exampleSelect2">
                                     <option>Petrol</option>
                                     <option>Diesel</option>
                                     <option>Hybrid</option>
@@ -88,25 +116,20 @@ export class AddVehiclemodal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label>Price Per hour</Label>
-                                <Input onChange={this.handlePrice} type="text" placeholder="Hourly Rate" />
+                                <Input onChange={this.handlePrice} type="text" name="vehicleRentalPrice" placeholder="Hourly Rate" />
                             </FormGroup>
                             <FormGroup>
                                 <Label>Vehicle Type</Label>
-                                <Input onChange={this.handleVehicleType} type="text" placeholder="Vehicle Type" />
+                                <Input onChange={this.handleVehicleType} type="text" name="vehicleType" placeholder="Vehicle Type" />
                             </FormGroup>
-                            {/* for now to add img urls */}
+                            
                             <FormGroup>
-                                <Label>Vehicle Image URL</Label>
-                                <Input onChange={this.handleUrl} type="text" placeholder="Image URL" />
-                            </FormGroup>
-
-                            {/* <FormGroup>
                                 <Label for="exampleFile">File</Label>
-                                <Input type="file" name="file" onChange={this.fileChangedHandler} id="exampleFile" />
+                                <Input type="file" name="imgFile" onChange={this.fileChangeHandler} /** id="exampleFile"*/ />
                                 <FormText color="muted">
                                     Add image of your craft here
                                     </FormText>
-                            </FormGroup> */}
+                            </FormGroup>
                             <Button onClick={this.handleAddBtnClick} className="btn-lg btn-dark btn-block" type="submit">Add</Button>
                         </Form>
                     </Modal.Body>

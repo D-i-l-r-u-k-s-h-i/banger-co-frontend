@@ -119,16 +119,7 @@ const addvehicle=createLogic({
         // debugger
         console.log("payload check",action.payload)
 
-        let obj={
-            vehicleName: action.payload.name,
-            gearboxType:action.payload.gearbox,
-            vehicleRentalPrice:action.payload.price,
-            vehicleType:action.payload.type,
-            fuelType:action.payload.fueltype,
-            vehicleImgLink:action.payload.img,
-        }
-
-        HTTPclient.post(endPoints.ADD_VEHICLE,obj)
+        HTTPclient.postVehicle(endPoints.ADD_VEHICLE,action.payload)
             .then(resp=> {
                 // debugger
                 console.log(resp.data)
@@ -157,17 +148,7 @@ const updatevehicle=createLogic({
         // debugger
         console.log("payload check",action.payload)
 
-        let obj={
-            id:action.payload.vehicleId,
-            vehicleName: action.payload.name,
-            gearboxType:action.payload.gearbox,
-            vehicleRentalPrice:action.payload.price,
-            vehicleType:action.payload.type,
-            fuelType:action.payload.fueltype,
-            vehicleImgLink:action.payload.img,
-        }
-
-        HTTPclient.post(endPoints.UPDATE_VEHICLE,obj)
+        HTTPclient.postVehicle(endPoints.UPDATE_VEHICLE,action.payload)
             .then(resp=> {
                 // debugger
                 console.log(resp.data)

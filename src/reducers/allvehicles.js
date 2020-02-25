@@ -65,17 +65,19 @@ export default handleActions({
     }),
     [addVehicleTypes.SUCCESS_ADD_VEHICLE]:(state,{payload})=>{
         console.log(state)
+
+        var object = {};
+        state.addItem.vehicleData.forEach((value, key) => {
+            object[key] = value
+        });
+        
+        console.log(object)  
+
         if (state.vehicleData && Array.isArray(state.vehicleData) && state.vehicleData.length !== 0) {
-            let obj={
-                vehicleName: state.addItem.vehicleData.name,
-                gearboxType: state.addItem.vehicleData.gearbox,
-                vehicleRentalPrice: state.addItem.vehicleData.price,
-                vehicleType: state.addItem.vehicleData.type,
-                fuelType: state.addItem.vehicleData.fueltype,
-                vehicleImgLink: state.addItem.vehicleData.img,
-                
-            }
-            return state.vehicleData.push(obj);
+            
+            object.imgFile=object.b64image.startsWith('data:image/png')?object.b64image.replace('data:image/png;base64,','') : object.b64image.replace('data:image/jpeg;base64,','')
+            console.log(object)    
+            return state.vehicleData.push(object);
         }
         
         return {
@@ -100,22 +102,27 @@ export default handleActions({
     }),
     [updateVehicleTypes.SUCCESS_UPDATE_VEHICLE]:(state,{payload})=>{
         console.log(state)
+
+        var object = {};
+        state.addItem.vehicleData.forEach((value, key) => {
+            object[key] = value
+        });
+        
+        console.log(object)
         if (state.vehicleData && Array.isArray(state.vehicleData) && state.vehicleData.length !== 0) {
             state.vehicleData && state.vehicleData.map((removeId, index) => {
                 // console.log(removeId.id)
                 // console.log(state.addItem.vehicleData.vehicleId)
-                if (removeId.id == state.addItem.vehicleData.vehicleId) {
-                    let obj={
-                        id:removeId.id,
-                        vehicleName:state.addItem.vehicleData.name!=null? state.addItem.vehicleData.name:removeId.vehicleName,
-                        vehicleRentalPrice:state.addItem.vehicleData.price!=0 ? state.addItem.vehicleData.price:removeId.vehicleRentalPrice,
-                        gearboxType:state.addItem.vehicleData.gearbox !=null? state.addItem.vehicleData.gearbox:removeId.gearboxType,
-                        fuelType:state.addItem.vehicleData.fueltype !=null? state.addItem.vehicleData.fueltype:removeId.fuelType,
-                        vehicleType:state.addItem.vehicleData.type !=null? state.addItem.vehicleData.type:removeId.vehicleType,
-                        vehicleImgLink:state.addItem.vehicleData.image !=null ?state.addItem.vehicleData.image:removeId.vehicleImgLink
-                    }
-                    console.log(obj)
-                    return state.vehicleData.splice(index,1, obj)
+                if (removeId.vehicleId == object.vehicleId) {
+                    object.vehicleName=object && object.hasOwnProperty('vehicleName') ?object.vehicleName:object.vehicleName=removeId.vehicleName
+                    object.vehicleRentalPrice=object && object.hasOwnProperty('vehicleRentalPrice')?object.vehicleRentalPrice :object.vehicleRentalPrice=removeId.vehicleRentalPrice
+                    object.gearboxType=object && object.hasOwnProperty('gearboxType')?object.gearboxType:object.gearboxType=removeId.gearboxType
+                    object.fuelType=object && object.hasOwnProperty('fuelType')?object.fuelType:object.fuelType=removeId.fuelType
+                    object.vehicleType=object && object.hasOwnProperty('vehicleType')?object.vehicleType:object.vehicleType=removeId.vehicleType
+                    object.imgFile=object && object.hasOwnProperty('imgFile')?(object.imgFile=object.b64image.startsWith('data:image/png;base64,')?object.b64image.replace('data:image/png;base64,','') : object.b64image.replace('data:image/jpeg;base64,','')):object.imgFile=removeId.imgFile
+                    
+                    console.log(object)
+                    return state.vehicleData.splice(index,1, object)
                 }
             })
 

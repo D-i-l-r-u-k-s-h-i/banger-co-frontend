@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Rater from 'react-rater'
 
 const Card = ({property}) => {
-    const {index, vehicleImgLink, vehicleRentalPrice, vehicleName, vehicleType,vehicleRating,gearboxType,fuelType} = property;
+    const {index, imgFile, vehicleRentalPrice, vehicleName, vehicleType,vehicleRating,gearboxType,fuelType} = property;
     return (
         <div id={`cardd-${index}`} className="cardd">
-            <img src={vehicleImgLink} alt={vehicleName} /><hr/>
+            <img src={`data:image/png;base64,${imgFile}`} alt={vehicleName} /><hr/>
             <div className="details">
                 <span className="index">{index+1}</span>
                 <p className="location">

@@ -66,7 +66,7 @@ export class BookVehicleComponent extends Component {
                     <tr>
                         <td>
                             <div className="imgalign">
-                                <img src={property.vehicleImgLink} alt="img" /><hr />
+                                <img src={`data:image/png;base64,${property.imgFile}`} alt="img" /><hr />
                             </div>
                         </td>
                         <td>
