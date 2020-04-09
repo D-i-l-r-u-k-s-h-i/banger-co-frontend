@@ -4,6 +4,10 @@ export const ALL_VEHICLES="/vehicle/"
 
 export const LOGIN="/auth/login"
 
+export const SEARCH_USER="/admin/search/"
+
+export const UPDATE_CUSTOMER="/admin/updatecustomer"
+
 export const MAKE_BOOKING="/bookings/save"
 
 export const ADD_REVIEW="/reviews/save"
@@ -43,3 +47,5 @@ export const DELETE_VEHICLE="/vehicle/delete/"
 export const UPDATE_VEHICLE="/vehicle/update"
 
 export const ADD_VEHICLE="/vehicle/save"
+
+export const GET_RENTAL_PRICES="/vehicle/rentalrates"

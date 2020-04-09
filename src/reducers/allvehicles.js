@@ -1,9 +1,10 @@
-import {allVehicleTypes,vehiclesBookedByUserTypes,deleteVehicleTypes,addVehicleTypes,updateVehicleTypes} from '../actions'
+import {allVehicleTypes,vehiclesBookedByUserTypes,deleteVehicleTypes,addVehicleTypes,updateVehicleTypes,getRentalPriceTypes} from '../actions'
 
 import {handleActions} from "redux-actions"
 
 const initialState={
-    vehicleData:null
+    vehicleData:null,
+    rentalData:null
 }
 
 export default handleActions({
@@ -140,5 +141,14 @@ export default handleActions({
     },
     [updateVehicleTypes.FAIL_UPDATE_VEHICLE]:(state,{payload})=>({
         ...state,loading:false,vehicleData:null
+    }),
+    [getRentalPriceTypes.GET_RENTAL_PRICES]:(state,{payload})=>({
+        ...state,loading:true
+    }),
+    [getRentalPriceTypes.SUCCESS_GET_RENTAL_PRICES]:(state,{payload})=>({
+        ...state,loading:false,rentalData:payload
+    }),
+    [getRentalPriceTypes.FAIL_GET_RENTAL_PRICES]:(state,{payload})=>({
+        ...state,loading:false,rentalData:null
     }),
 },initialState)

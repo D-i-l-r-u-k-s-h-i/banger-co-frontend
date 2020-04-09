@@ -20,6 +20,8 @@ import * as BlackListUser from './blacklistUser'
 import * as DeleteVehicle from './deleteVehicle'
 import * as AddVehicle from './addVehicle'
 import * as UpdateVehicle from './updateVehicle'
+import * as GetRentalPrices from './getRentalPrices'
+import * as UpdateCustomer from './updateCustomer'
 
 
 //taken by reducer
@@ -111,6 +113,14 @@ export{
     UpdateVehicle as updateVehicleTypes
 }
 
+export{
+    GetRentalPrices as getRentalPriceTypes
+}
+
+export{
+    UpdateCustomer as updateCustomerTypes
+}
+
 //for the actions
 export const vehiclesBookedByUserActions=VehiclesBookedByUser.default;
 
@@ -138,6 +148,8 @@ export const addVehicleActions=AddVehicle.default;
 
 export const updateVehicleActions=UpdateVehicle.default;
 
+export const updateCustomerActions=UpdateCustomer.default;
+
 export const getPastBookingActions=GetPastBookings.default;
 
 export const getCurrentBookingActions=GetCurrentBookings.default;
@@ -145,6 +157,8 @@ export const getCurrentBookingActions=GetCurrentBookings.default;
 export const getTimeSlotActions=GetTimeSlots.default;
 
 export const getReviewsActions=GetReviews.default;
+
+export const getRentalPriceActions=GetRentalPrices.default;
 
 export const addRatingActions=AddRating.default;
 

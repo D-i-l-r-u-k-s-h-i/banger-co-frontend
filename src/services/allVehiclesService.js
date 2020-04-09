@@ -12,7 +12,9 @@ import {
     addVehicleActions,
     addVehicleTypes,
     updateVehicleActions,
-    updateVehicleTypes
+    updateVehicleTypes,
+    getRentalPriceActions,
+    getRentalPriceTypes
 } from "../actions"
 
 import * as endPoints from './endpoints'
@@ -164,10 +166,40 @@ const updatevehicle=createLogic({
     }
 })
 
+const getRentals = createLogic({
+    type: getRentalPriceTypes.GET_RENTAL_PRICES,
+    latest: true,
+    debounce: 1000,
+
+    process({
+        action
+    }, dispatch, done) {
+        let HTTPclient = api
+
+        // debugger
+        console.log("payload check", action.payload)
+
+        HTTPclient.get(endPoints.GET_RENTAL_PRICES)
+            .then(resp => {
+                //debugger
+                console.log(resp.data)
+                dispatch(getRentalPriceActions.getRentalPricesSuccess(resp.data))
+            })
+            .catch(err => {
+                var errormsg = "Failed to get Rental Prices";
+                if (err && err.code === "ECONNABORTED") {
+                    errormsg = "Please check your internet connection.";
+                }
+                dispatch(getRentalPriceActions.getRentalPricesFail(errormsg))
+            }).then(() => done());
+    }
+})
+
 export default [
     allvehicles,
     vehiclesBookedByUser,
     deletevehicle,
     addvehicle,
-    updatevehicle
+    updatevehicle,
+    getRentals
 ]
