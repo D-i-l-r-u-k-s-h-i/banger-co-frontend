@@ -5,9 +5,9 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { bookingActions } from '../actions'
+import { bookingActions,checkLisenceActions } from '../actions'
 import "react-datepicker/dist/react-datepicker.css";
-import { Alert } from 'reactstrap'
+import { FormGroup, Label, Input, Alert } from 'reactstrap'
 
 export class SchedularModal extends Component {
     constructor(props) {
@@ -20,7 +20,9 @@ export class SchedularModal extends Component {
             vehicleId: null, //to send in the request body when saving booking
             equipmentId:null,
             visible:false,
-            id:null  //common for both vehicle and equips for getting timeslots
+            visible2:false,
+            id:null, //common for both vehicle and equips for getting timeslots
+            lisenceNo:null
         }
     }
 
@@ -122,6 +124,24 @@ export class SchedularModal extends Component {
         this.props.onHide()
     }
 
+    onDismiss2 = () =>{
+        this.setState({
+            visible2:false
+        })
+        // this.props.onHide()
+    }
+
+    handleLisenceNo=(e)=>{
+        this.setState({lisenceNo:e.target.value})
+    }
+
+    submitOnClick=()=>{
+        this.props.checkLisenceActions.checkLisence(this.state.lisenceNo)
+        this.setState({
+            visible2:true
+        })
+    }
+
     render() {
         let timeSlotArray = this.state.timeslots;
         console.log(this.props)
@@ -140,6 +160,15 @@ export class SchedularModal extends Component {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                        {this.props.lisenceStatusData==null?<div>
+                        <FormGroup>
+                            <Label>Lisence Number</Label>
+                            <Input onChange={this.handleLisenceNo} type="text" name="lisenceNo" placeholder="Enter Lisence No. of the driver" />
+                        </FormGroup>
+
+                        <button className="btn btn-dark" onClick={this.submitOnClick}> Submit </button><br/></div>:
+                        this.props.lisenceStatusData.bookingeligibility?
+                        <div>
                         <h4>Availability</h4>
                         Pick-up date
                         <DatePicker
@@ -165,13 +194,17 @@ export class SchedularModal extends Component {
                             dateFormat="yyyy-MM-dd h:mm aa"
                             selectsEnd
                             excludeTimes={timeSlotArray}
-                        />
+                        /></div>:<h3>We're Sorry!</h3>}
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleSubmit} type='submit'>Make Booking</Button>
+                        {this.props.lisenceStatusData==null?null:localStorage.getItem("roleId") == 1?null:this.props.lisenceStatusData.bookingeligibility?<Button onClick={this.handleSubmit} type='submit'>Make Booking</Button>:null}
                         <Alert color="warning" isOpen={this.state.visible} toggle={this.onDismiss}>
                         {this.props.makeBookingData}
+                    </Alert>
+                    <Alert color="info" isOpen={this.state.visible2} toggle={this.onDismiss2}>
+                        Lisence Status: {this.props.lisenceStatusData && this.props.lisenceStatusData.lisenceOffenseStatus} Insuarance Status: {this.props.lisenceStatusData && this.props.lisenceStatusData.insuranceOffenseStatus}<br/>
+                        {this.props.lisenceStatusData && this.props.lisenceStatusData.bookingeligibility? "You are eligible to book vehicles and equipment from Banger":`Sorry, lisence No.${this.state.lisenceNo} is not eligible for booking from Banger`} 
                     </Alert>
                     </Modal.Footer>
                 </Modal>
@@ -183,6 +216,7 @@ export class SchedularModal extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         bookingActions: bindActionCreators(bookingActions, dispatch),
+        checkLisenceActions: bindActionCreators(checkLisenceActions, dispatch)
     }
 }
 

@@ -22,6 +22,7 @@ import * as AddVehicle from './addVehicle'
 import * as UpdateVehicle from './updateVehicle'
 import * as GetRentalPrices from './getRentalPrices'
 import * as UpdateCustomer from './updateCustomer'
+import * as CheckLisence from './checkLisenceNo'
 
 
 //taken by reducer
@@ -121,6 +122,10 @@ export{
     UpdateCustomer as updateCustomerTypes
 }
 
+export{
+    CheckLisence as checkLisenceTypes
+}
+
 //for the actions
 export const vehiclesBookedByUserActions=VehiclesBookedByUser.default;
 
@@ -131,6 +136,8 @@ export const allAdditionalEquipsActions=AllAdditionalEquips.default;
 export const cancelBookingActions=CancelBooking.default;
 
 export const confirmPickupActions=ConfirmPickup.default;
+
+export const checkLisenceActions=CheckLisence.default;
 
 export const confirmReturnActions=ConfirmReturn.default;
 

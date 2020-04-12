@@ -1,6 +1,6 @@
 import {createLogic} from 'redux-logic'
 
-import {bookingActions,bookingTypes,extendBookingActions,extendBookingTypes} from "../actions"
+import {bookingActions,bookingTypes,extendBookingActions,extendBookingTypes,checkLisenceActions,checkLisenceTypes} from "../actions"
 
 import * as endPoints from './endpoints'
 import * as api from './HTTPclient'
@@ -72,7 +72,39 @@ const extendbooking=createLogic({
     }
 })
 
+const checklisence=createLogic({
+    type:checkLisenceTypes.CHECK_LISENCE,
+    latest:true,
+    debounce:1000,
+
+    process({
+        action
+    },dispatch,done){
+        let HTTPclient=api
+
+        // debugger
+        console.log("payload check",action.payload)
+
+        var lisenceNo=action.payload //check
+
+        HTTPclient.post(endPoints.CHECK_LISENCE+lisenceNo)
+            .then(resp=> {
+                // debugger
+                dispatch(checkLisenceActions.checkLisenceSuccess(resp.data))
+            })
+            .catch(err=>{
+                var errormsg="Failed to Check Eligibility for booking";
+                if (err && err.code === "ECONNABORTED") {
+                    errormsg = "Please check your internet connection.";
+                }
+                dispatch(checkLisenceActions.checkLisenceFail(errormsg))
+            }).then(()=>done());
+        
+    }
+})
+
 export default [
     booking,
-    extendbooking
+    extendbooking,
+    checklisence
 ]

@@ -42,6 +42,8 @@ export const RETURN_BOOKING="/bookings/return/"
 
 export const BLACKLIST_USER="/bookings/blacklist/"
 
+export const CHECK_LISENCE="bookings/checklicence/"
+
 export const DELETE_VEHICLE="/vehicle/delete/"
 
 export const UPDATE_VEHICLE="/vehicle/update"

@@ -9,7 +9,7 @@ function NavBarComponent() {
                 <Nav.Item className="p-2 mb-1 text-white">{localStorage.getItem("user")}</Nav.Item>
                 <NavDropdown title="&#9881; Options" id="nav-dropdown" >
                     <NavDropdown.Item eventKey="4.1">Profile</NavDropdown.Item>
-                    <LinkContainer to={{
+                    {localStorage.getItem("roleId") != 1?<div><LinkContainer to={{
                         pathname: '/bookings1',
                         props: {
                             optionSelected: "CURRENT"
@@ -24,7 +24,7 @@ function NavBarComponent() {
                         }
                     }}>
                         <NavDropdown.Item eventKey="4.3">Past Bookings</NavDropdown.Item>
-                    </LinkContainer>
+                    </LinkContainer></div>:null}
                     <NavDropdown.Divider />
                     <LinkContainer onClick={() => {
 

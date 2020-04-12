@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import { loginActions } from '../actions'
-import { Alert } from 'reactstrap'
+// import { Alert } from 'reactstrap'
 
 export class LoginComponent extends Component {
     constructor(props){
@@ -14,7 +14,7 @@ export class LoginComponent extends Component {
             uname:null,
             pass:null,
             loginState:null,
-            visible:false,
+            // visible:false,
         }
     }
 
@@ -37,19 +37,19 @@ export class LoginComponent extends Component {
 
     handleloginBtnClick=(e)=>{
         e.preventDefault();
-        this.setState({
-            visible:true
-        })
+        // this.setState({
+        //     visible:true
+        // })
         // debugger
         this.props.loginActions.login(this.state)
         
     }
 
-    onDismiss = () =>{
-        this.setState({
-            visible:false
-        })
-    }
+    // onDismiss = () =>{
+    //     this.setState({
+    //         visible:false
+    //     })
+    // }
 
     render() {
         console.log(this.props.loginData)
@@ -68,9 +68,9 @@ export class LoginComponent extends Component {
                     </FormGroup>
                     <Button className="btn-lg btn-dark btn-block" onClick={this.handleloginBtnClick} type="submit">Log in</Button>
                     <div className="text-center pt-3">Or continue with Google</div>
-                    <Alert color="warning" isOpen={this.state.visible} toggle={this.onDismiss}>
+                    {/* <Alert color="warning" isOpen={this.state.visible} toggle={this.onDismiss}>
                         {this.props.loginData}
-                    </Alert>
+                    </Alert> */}
                     <GoogleLoginButton className="mt-3 mb-3"/>
                     <div className="text-center">
                         <a href="/signup">Sign Up</a>
