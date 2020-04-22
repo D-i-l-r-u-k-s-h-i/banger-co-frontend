@@ -44,6 +44,10 @@ export const BLACKLIST_USER="/bookings/blacklist/"
 
 export const CHECK_LISENCE="bookings/checklicence/"
 
+export const GET_AVAILABLE_BOOKING_ITEMS="bookings/slotitems/"
+
+export const ADD_TO_BOOKING="bookings/additemtobooking"
+
 export const DELETE_VEHICLE="/vehicle/delete/"
 
 export const UPDATE_VEHICLE="/vehicle/update"

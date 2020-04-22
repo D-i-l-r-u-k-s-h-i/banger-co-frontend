@@ -1,9 +1,13 @@
-import {getCurrentBookingTypes,getPastBookingTypes,getTodaysBookingTypes,cancelBookingTypes,cancelBookingItemTypes} from '../actions'
+import {getCurrentBookingTypes,getPastBookingTypes,
+    getTodaysBookingTypes,cancelBookingTypes,
+    cancelBookingItemTypes,getAvailableBookingItemTypes,
+    addItemToBookingActions,addItemToBookingTypes} from '../actions'
 
 import {handleActions} from "redux-actions"
 
 const initialState={
-    bookingData:null
+    bookingData:null,
+    availableItemsData:null
 }
 
 export default handleActions({
@@ -115,6 +119,99 @@ export default handleActions({
         }
     },
     [cancelBookingItemTypes.FAIL_CANCEL_BOOKING_ITEM]:(state,{payload})=>({
+        ...state,loading:false,bookingData:null
+    }),
+    [getAvailableBookingItemTypes.GET_AVAILABLE_ITEMS_FOR_BOOKING]:(state,{payload})=>({
+        ...state,loading:true
+    }),
+    [getAvailableBookingItemTypes.SUCCESS_GET_AVAILABLE_ITEMS_FOR_BOOKING]:(state,{payload})=>({
+        ...state,loading:false,availableItemsData:payload
+    }),
+    [getAvailableBookingItemTypes.FAIL_GET_AVAILABLE_ITEMS_FOR_BOOKING]:(state,{payload})=>({
+        ...state,loading:false,availableItemsData:null
+    }),
+    [addItemToBookingTypes.ADD_ITEM_TO_BOOKING]:(state,{payload})=>({
+        ...state, addItem: {
+            ...state.addItem,
+            loading:true,
+            bookingData: payload
+        }
+    }),
+    [addItemToBookingTypes.SUCCESS_ADD_ITEM_TO_BOOKING]:(state,{payload})=>{
+        console.log(state)
+
+        if (state.bookingData && Array.isArray(state.bookingData) && state.bookingData !== 0) {
+            state.bookingData && state.bookingData.map((addId, index) => {
+                console.log(addId)
+                
+                console.log(state.bookingData[index].bookingId)
+                console.log(addId.bookingId)
+
+                if(state.bookingData[index].bookingId==addId.bookingId){
+                    
+                    if(state.addItem.bookingData.equipmentId!=0){
+                        if (state.bookingData[index].additionalEquipmentList && Array.isArray(state.bookingData[index].additionalEquipmentList) && state.bookingData[index].additionalEquipmentList.length !== 0) {
+                            
+                            state.availableItemsData.additionalEquipmentList && state.availableItemsData.additionalEquipmentList.map((equipId, index2) => {
+                                console.log(equipId)
+                                if(equipId.equipmentId==state.addItem.bookingData.equipmentId){
+                                    let obj={
+                                        equipment:
+                                        { 
+                                            equipmentId:equipId.equipmentId,
+                                            equipmentName:equipId.equipmentName,
+                                            aeRentalPrice:equipId.aeRentalPrice,
+                                        }
+                                    }
+                                    console.log(obj)
+                                    console.log(state)
+                                    console.log(state.bookingData[index])
+
+                                    state.availableItemsData.additionalEquipmentList.splice(index2, 1)
+                                    return state.bookingData[index].additionalEquipmentList.push(obj);
+                                }
+                            })
+                        }
+                    }
+                    
+                    if(state.addItem.bookingData.vehicleId!=0){
+                        if (state.bookingData[index].vehicleList && Array.isArray(state.bookingData[index].vehicleList) && state.bookingData[index].vehicleList.length !== 0) {
+                            state.availableItemsData.vehicleList && state.availableItemsData.vehicleList.map((vehicleId, index2) => {
+                                console.log(vehicleId)
+                                if(vehicleId.vehicleId==state.addItem.bookingData.vehicleId){
+                                    let obj={
+                                        vehicle:
+                                        {   vehicleId:vehicleId.vehicleId,
+                                            vehicleName:vehicleId.vehicleName,
+                                            vehicleRentalPrice:vehicleId.vehicleRentalPrice
+                                        }
+                                    }
+                                    console.log(obj)
+                                    console.log(state)
+                                    console.log(state.bookingData[index])
+
+                                    state.availableItemsData.vehicleList.splice(index2, 1)
+                                    return state.bookingData[index].vehicleList.push(obj);
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+            
+        }
+
+        return {
+            ...state,
+            addItem: {
+                ...state.addItem,
+                loading: false,
+                addItem: true,
+                addItemError: undefined
+            }
+        }
+    },
+    [addItemToBookingTypes.FAIL_ADD_ITEM_TO_BOOKING]:(state,{payload})=>({
         ...state,loading:false,bookingData:null
     }),
 },initialState)

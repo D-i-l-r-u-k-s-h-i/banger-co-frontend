@@ -23,6 +23,8 @@ import * as UpdateVehicle from './updateVehicle'
 import * as GetRentalPrices from './getRentalPrices'
 import * as UpdateCustomer from './updateCustomer'
 import * as CheckLisence from './checkLisenceNo'
+import * as GetAvailableItems from './getAvailableItemsForBooking'
+import * as AddItemToBooking from './addItemToBooking'
 
 
 //taken by reducer
@@ -48,6 +50,10 @@ export{
 
 export{
     AddRating as addRatingTypes
+}
+
+export{
+    AddItemToBooking as addItemToBookingTypes
 }
 
 export{
@@ -84,6 +90,10 @@ export{
 
 export{
     GetTodaysBookings as getTodaysBookingTypes
+}
+
+export{
+    GetAvailableItems as getAvailableBookingItemTypes
 }
 
 export{
@@ -163,6 +173,8 @@ export const getCurrentBookingActions=GetCurrentBookings.default;
 
 export const getTimeSlotActions=GetTimeSlots.default;
 
+export const getAvailableBookingItemActions=GetAvailableItems.default;
+
 export const getReviewsActions=GetReviews.default;
 
 export const getRentalPriceActions=GetRentalPrices.default;
@@ -170,6 +182,8 @@ export const getRentalPriceActions=GetRentalPrices.default;
 export const addRatingActions=AddRating.default;
 
 export const bookingActions=MakeBooking.default;
+
+export const addItemToBookingActions=AddItemToBooking.default;
 
 export const allVehicleActions=AllVehicles.default;
 

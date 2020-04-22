@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import { Alert } from 'reactstrap'
+import ShowBookingItemsModal from './showBookingItemsModal';
 export class Booking extends Component {
 
   constructor(props) {
@@ -14,6 +15,7 @@ export class Booking extends Component {
         equipmentId:null,
         visible:false,
         visible2:false,
+        modalShow: false,
     }
   }
 
@@ -73,13 +75,14 @@ export class Booking extends Component {
   }
 
   content(){
-    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = this.props.booking;
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total ,bookingId} = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
     return (
       <div className="media mb-3">
         <div className="media-body p-2 shadow-sm rounded bg-light border">
           <small className="float-right text-muted">{bookingStatusType}</small>
           Rental Period: {rentalPeriod}hrs<br />
+          Booking No.: {bookingId}<br />
           Pickup Date: {pickupDate}<br />
           Return Date: {returnDate}<br />
           <ul>
@@ -133,14 +136,18 @@ export class Booking extends Component {
     );
   }
   contentPending () {
-    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total } = this.props.booking;
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total,bookingId } = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
+
+    let modalClose = () => this.setState({ modalShow: false });
+
     return (
       <div>
         <div className="media mb-3">
           <div className="media-body p-2 shadow-sm rounded bg-light border">
             <small className="float-right text-muted">{bookingStatusType}</small>
             Rental Period: {rentalPeriod}hrs<br />
+            Booking No.: {bookingId}<br />
             Pickup Date: {pickupDate}<br />
             Return Date: {returnDate}<br />
             <ul>
@@ -192,10 +199,11 @@ export class Booking extends Component {
                 <td>Rs.{total}.00</td>
               </tr>
             </table><br />
-            {bookingStatusType === "PICKED_UP" ? <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div> : <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
+            {bookingStatusType === "PICKED_UP" ? <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div> : <div><button onClick={()=>this.setState({ modalShow: true })} type="button" class="btn btn-warning">&#x2b; to Booking</button><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
             <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.props.BookingData == false ? "Booking could not be extended" : "Booking was extended successfully until 4.00pm"}
             </Alert>
+            <ShowBookingItemsModal show={this.state.modalShow} props={this.props.booking.bookingId} onHide={modalClose}/>
           </div>
           <br />
         </div>

@@ -31,8 +31,8 @@ export class SchedularModal extends Component {
 
         if(this.props.type==="VEHICLE"){
             this.setState({
-                id:this.props.location.state.property.id,
-                vehicleId:this.props.location.state.property.id
+                id:this.props.location.state.property.vehicleId,
+                vehicleId:this.props.location.state.property.vehicleId
             })
         }
         else if(this.props.type==="EQUIPMENT"){
@@ -145,6 +145,7 @@ export class SchedularModal extends Component {
     render() {
         let timeSlotArray = this.state.timeslots;
         console.log(this.props)
+        console.log(this.state)
 
         return (
             <div>
