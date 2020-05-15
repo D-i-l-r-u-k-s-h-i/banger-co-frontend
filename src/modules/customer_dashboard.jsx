@@ -9,11 +9,14 @@ export class CustomerDashboard extends Component {
     render() {
         return (
 
-            <div className="body_container">
+            <div >
+                <div className="body_container">
                 <NavBarComponent />
                 <SliderComponent/><br/>
                 <SliderComponentAE/>
                 <br/>
+                </div>
+                <br/><br/>
                 <Container>
                     <h3>TERMS AND CONDITIONS</h3><br/>
 
@@ -31,6 +34,7 @@ export class CustomerDashboard extends Component {
                     </ul>
                     <br/>
                 </Container>
+                
                 <Footer/>
             </div>
 

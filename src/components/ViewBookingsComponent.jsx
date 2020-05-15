@@ -46,7 +46,7 @@ export class ViewBookingsComponent extends Component {
     }
 //if bookings:past show past bookings else if current show current
     componentDidMount(){
-        let option=this.props.location.props.optionSelected
+        let option=this.props.location.props!=undefined? this.props.location.props.optionSelected:"CURRENT"
 
         if(option==="CURRENT"){
             this.props.getCurrentBookingActions.getCurrentBookings(this.state)
@@ -63,9 +63,9 @@ export class ViewBookingsComponent extends Component {
     //reusing the same component on update of props
     componentDidUpdate(prevProps){
         console.log(prevProps)
-        let option=this.props.location.props.optionSelected
+        let option=this.props.location.props!=undefined? this.props.location.props.optionSelected:"CURRENT"
 
-        if (option !== prevProps.location.props.optionSelected) {
+        if (option !== (prevProps.location.props && prevProps.location.props.optionSelected)) {
             if(option==="CURRENT"){
                 this.props.getCurrentBookingActions.getCurrentBookings(this.state)
             }
@@ -80,7 +80,7 @@ export class ViewBookingsComponent extends Component {
         // console.log(this.props.history.location.props.optionSelected)
         const {vehicleData}=this.state;
         return (
-            <div className='bodycontainer'>
+            <div>
                 <div className="form_container">
                     <div className="row">
                         <div className="col-8  pt-3 bg-white">
@@ -94,7 +94,7 @@ export class ViewBookingsComponent extends Component {
                 <br/><hr></hr>
                 <div>
                 {this.props.location.props !=undefined && this.props.location.props.optionSelected == "PAST" ?vehicleData && vehicleData.map(property => <RateReviewCard props={property}/>):null}
-                <hr/>
+                
                 </div>
             </div>
         )

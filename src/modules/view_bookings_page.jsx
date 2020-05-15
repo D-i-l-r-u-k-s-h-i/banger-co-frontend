@@ -7,8 +7,10 @@ export class ViewBookingsPage extends Component {
     render() {
         return (
             <div>
+                <div className='page-wrap'>
                 <NavBarComponent/>
                 <ViewBookingsComponent/>
+                </div>
                 <Footer/>
             </div>
         )

@@ -64,54 +64,56 @@ export class SignupComponent extends Component {
 
     render() {
         return (
-            <div className='app-container'>
-                <div className='app-card app-card-content'>
-                    <div className='app-card-content-inner'>
-                        <div className="app-form-item">
-                            <Form onSubmit={this.loginhandler}>
-                                <h1><span className="font-weight-bold">Banger & Co</span></h1>
-                                <h2 className="text-center">Welcome</h2>
-                                <table>
-                                    <tr><td>
-                                        <FormGroup>
-                                            <Label>First Name</Label>
-                                            <Input onChange={this.handleFName} type="text" placeholder="First name" />
-                                        </FormGroup>
-                                    </td>
-                                        <td>
+            <div className='background_container'>
+                <div className='app-container'>
+                    <div className='app-card app-card-content'>
+                        <div className='app-card-content-inner'>
+                            <div className="app-form-item">
+                                <Form onSubmit={this.loginhandler}>
+                                    <h1><span className="font-weight-bold text-white">Banger & Co</span></h1>
+                                    <h2 className="text-center text-white">Welcome</h2>
+                                    <table>
+                                        <tr><td>
                                             <FormGroup>
-                                                <Label>Last Name</Label>
-                                                <Input onChange={this.handleLName} type="text" placeholder="last name" />
+                                                <Label className="text-white">First Name</Label>
+                                                <Input onChange={this.handleFName} type="text" placeholder="First name" />
                                             </FormGroup>
                                         </td>
-                                    </tr>
-                                </table>
-                                <FormGroup>
-                                    <Label>Email</Label>
-                                    <Input onChange={this.handleEmail} type="email" placeholder="email" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>Username</Label>
-                                    <Input onChange={this.handleUsername} type="text" placeholder="username" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>Contact Number</Label>
-                                    <Input onChange={this.handleContact}type="text" placeholder="contact no." />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>Emergency Contact Number</Label>
-                                    <Input onChange={this.handleEmergencyContact}type="text" placeholder="emergency contact no." />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>Password</Label>
-                                    <Input onChange={this.handlePassword} type="password" placeholder="password" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label>Confirm Password</Label>
-                                    <Input onChange={this.handleConfirmPassword}type="password" placeholder="Confirm Password" />
-                                </FormGroup>
-                                <Button  onClick={this.handleSignUpBtnClick} className="btn-lg btn-dark btn-block" type="submit">Sign Up</Button>
-                            </Form>
+                                            <td>
+                                                <FormGroup>
+                                                    <Label className="text-white">Last Name</Label>
+                                                    <Input onChange={this.handleLName} type="text" placeholder="last name" />
+                                                </FormGroup>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <FormGroup>
+                                        <Label className="text-white">Email</Label>
+                                        <Input onChange={this.handleEmail} type="email" placeholder="email" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="text-white">Username</Label>
+                                        <Input onChange={this.handleUsername} type="text" placeholder="username" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="text-white">Contact Number</Label>
+                                        <Input onChange={this.handleContact} type="text" placeholder="contact no." />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="text-white">Emergency Contact Number</Label>
+                                        <Input onChange={this.handleEmergencyContact} type="text" placeholder="emergency contact no." />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="text-white">Password</Label>
+                                        <Input onChange={this.handlePassword} type="password" placeholder="password" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="text-white">Confirm Password</Label>
+                                        <Input onChange={this.handleConfirmPassword} type="password" placeholder="Confirm Password" />
+                                    </FormGroup>
+                                    <Button onClick={this.handleSignUpBtnClick} className="btn-lg btn-dark btn-block" type="submit">Sign Up</Button>
+                                </Form>
+                            </div>
                         </div>
                     </div>
                 </div>

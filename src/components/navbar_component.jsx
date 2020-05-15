@@ -37,7 +37,7 @@ function NavBarComponent() {
                         <NavDropdown.Item eventKey="4.4">Logout</NavDropdown.Item>
                     </LinkContainer>
                 </NavDropdown>
-                {localStorage.getItem("roleId") == 1 ? <Nav.Link href='/admin' >Dashboard</Nav.Link>: null}
+                {localStorage.getItem("roleId") == 1 ? <Nav.Link href='/admin' >Dashboard</Nav.Link>: <Nav.Link href="#" className='text-dark'>''''''''''</Nav.Link>}
             </Nav>
         )
     }
@@ -52,14 +52,14 @@ function NavBarComponent() {
 
     return (
         <div>
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" fixed='top'>
                 <Navbar.Brand href="/custdash">&#127345;anger &#8523; &#8450;o</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/custdash">Home</Nav.Link>
                 </Nav>
                {localStorage.getItem("jwt")?content():loginBtn()}
             </Navbar>
-            <br />
+            <br /><br /><br />
         </div>
     )
 }

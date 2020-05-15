@@ -1,7 +1,7 @@
 import {getCurrentBookingTypes,getPastBookingTypes,
     getTodaysBookingTypes,cancelBookingTypes,
     cancelBookingItemTypes,getAvailableBookingItemTypes,
-    addItemToBookingActions,addItemToBookingTypes} from '../actions'
+    addItemToBookingTypes} from '../actions'
 
 import {handleActions} from "redux-actions"
 
@@ -46,11 +46,11 @@ export default handleActions({
         }
     }),
     [cancelBookingTypes.SUCCESS_CANCEL_BOOKING]:(state,{payload})=>{
-        console.log(state)
+        // console.log(state)
         if (state.bookingData && Array.isArray(state.bookingData) && state.bookingData.length !== 0) {
             state.bookingData && state.bookingData.map((removeId, index) => {
-                console.log(removeId)
-                console.log(state.removeItem.bookingData)
+                // console.log(removeId)
+                // console.log(state.removeItem.bookingData)
                 if (removeId.bookingId == state.removeItem.bookingData.bookingId) {
                     return state.bookingData.splice(index, 1);
                 }
@@ -77,7 +77,7 @@ export default handleActions({
         }
     }),
     [cancelBookingItemTypes.SUCCESS_CANCEL_BOOKING_ITEM]:(state,{payload})=>{
-        console.log(state)
+        // console.log(state)
         if (state.bookingData && Array.isArray(state.bookingData) && state.bookingData !== 0) {
             state.bookingData && state.bookingData.map((removeId, index) => {
                 // console.log(removeId)
@@ -85,9 +85,9 @@ export default handleActions({
                 if (removeId.bookingId == state.removeItem.bookingData.bookingId) {
                     if (state.bookingData[index].vehicleList && Array.isArray(state.bookingData[index].vehicleList) && state.bookingData[index].vehicleList !== 0) {
                         state.bookingData[index].vehicleList && state.bookingData[index].vehicleList.map((removeItemId, index2) => {
-                            console.log(removeItemId.vehicle.vehicleId +" "+state.removeItem.bookingData.vehicleId)
+                            // console.log(removeItemId.vehicle.vehicleId +" "+state.removeItem.bookingData.vehicleId)
                             if (removeItemId.vehicle.vehicleId == state.removeItem.bookingData.vehicleId) {
-                                console.log(state.bookingData[index].vehicleList)
+                                // console.log(state.bookingData[index].vehicleList)
                                 return state.bookingData[index].vehicleList.splice(index2, 1);
                             }
                             
@@ -96,9 +96,9 @@ export default handleActions({
                     }
                     if (state.bookingData[index].additionalEquipmentList && Array.isArray(state.bookingData[index].additionalEquipmentList) && state.bookingData[index].additionalEquipmentList !== 0) {
                         state.bookingData[index].additionalEquipmentList && state.bookingData[index].additionalEquipmentList.map((removeItemId, index2) => {
-                            console.log(removeItemId.equipment.equipmentId +" "+state.removeItem.bookingData.equipmentId)
+                            // console.log(removeItemId.equipment.equipmentId +" "+state.removeItem.bookingData.equipmentId)
                             if (removeItemId.equipment.equipmentId == state.removeItem.bookingData.equipmentId) {
-                                console.log(state.bookingData[index].additionalEquipmentList)
+                                // console.log(state.bookingData[index].additionalEquipmentList)
                                 return state.bookingData[index].additionalEquipmentList.splice(index2, 1);
                             }
                             
@@ -138,14 +138,14 @@ export default handleActions({
         }
     }),
     [addItemToBookingTypes.SUCCESS_ADD_ITEM_TO_BOOKING]:(state,{payload})=>{
-        console.log(state)
+        // console.log(state)
 
         if (state.bookingData && Array.isArray(state.bookingData) && state.bookingData !== 0) {
             state.bookingData && state.bookingData.map((addId, index) => {
-                console.log(addId)
+                // console.log(addId)
                 
-                console.log(state.bookingData[index].bookingId)
-                console.log(addId.bookingId)
+                // console.log(state.bookingData[index].bookingId)
+                // console.log(addId.bookingId)
 
                 if(state.bookingData[index].bookingId==addId.bookingId){
                     
@@ -153,7 +153,7 @@ export default handleActions({
                         if (state.bookingData[index].additionalEquipmentList && Array.isArray(state.bookingData[index].additionalEquipmentList) && state.bookingData[index].additionalEquipmentList.length !== 0) {
                             
                             state.availableItemsData.additionalEquipmentList && state.availableItemsData.additionalEquipmentList.map((equipId, index2) => {
-                                console.log(equipId)
+                                // console.log(equipId)
                                 if(equipId.equipmentId==state.addItem.bookingData.equipmentId){
                                     let obj={
                                         equipment:
@@ -163,9 +163,9 @@ export default handleActions({
                                             aeRentalPrice:equipId.aeRentalPrice,
                                         }
                                     }
-                                    console.log(obj)
-                                    console.log(state)
-                                    console.log(state.bookingData[index])
+                                    // console.log(obj)
+                                    // console.log(state)
+                                    // console.log(state.bookingData[index])
 
                                     state.availableItemsData.additionalEquipmentList.splice(index2, 1)
                                     return state.bookingData[index].additionalEquipmentList.push(obj);
@@ -177,7 +177,7 @@ export default handleActions({
                     if(state.addItem.bookingData.vehicleId!=0){
                         if (state.bookingData[index].vehicleList && Array.isArray(state.bookingData[index].vehicleList) && state.bookingData[index].vehicleList.length !== 0) {
                             state.availableItemsData.vehicleList && state.availableItemsData.vehicleList.map((vehicleId, index2) => {
-                                console.log(vehicleId)
+                                // console.log(vehicleId)
                                 if(vehicleId.vehicleId==state.addItem.bookingData.vehicleId){
                                     let obj={
                                         vehicle:
@@ -186,9 +186,9 @@ export default handleActions({
                                             vehicleRentalPrice:vehicleId.vehicleRentalPrice
                                         }
                                     }
-                                    console.log(obj)
-                                    console.log(state)
-                                    console.log(state.bookingData[index])
+                                    // console.log(obj)
+                                    // console.log(state)
+                                    // console.log(state.bookingData[index])
 
                                     state.availableItemsData.vehicleList.splice(index2, 1)
                                     return state.bookingData[index].vehicleList.push(obj);

@@ -144,7 +144,7 @@ export class Booking extends Component {
     return (
       <div>
         <div className="media mb-3">
-          <div className="media-body p-2 shadow-sm rounded bg-light border">
+          <div className="media-body p-4 shadow-sm rounded bg-light border">
             <small className="float-right text-muted">{bookingStatusType}</small>
             Rental Period: {rentalPeriod}hrs<br />
             Booking No.: {bookingId}<br />
