@@ -8,6 +8,7 @@ import {
   import { connect } from 'react-redux'
   import { bindActionCreators } from 'redux'
   import { withRouter} from 'react-router-dom'
+  import {Spinner} from 'react-bootstrap'
 
 export class EditRemoveAEComponent extends Component {
     constructor(props){
@@ -87,6 +88,7 @@ export class EditRemoveAEComponent extends Component {
                 <button type="button" className="btn btn-primary btn-xl" onClick={() => this.setState({ addadditionalEquipssModalShow: true })}>
                     &#43; Additional Equipment</button>
                 <br/><hr/>
+                {additionalEquipsData==null?<div className="text-center"><br/><Spinner animation="border" variant="info"/></div>:null}
                 <Masonry
                     breakpointCols={breakpointColumnsObj}
                     className="my-masonry-grid"

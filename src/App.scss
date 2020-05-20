@@ -8,7 +8,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Corben', Georgia, Times, serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 p, div {
@@ -44,30 +44,31 @@ p, div {
   }
 }
 
+.about_us{
+  color: #CCCFD4;
+}
+
 .remove_icon{
   text-align: right;
 }
 
 .body_container{
   // min-width: 100vw;
-  border-left:200px solid #E3E7EC;
-  border-right: 200px solid #E3E7EC;
+  border-left:10vw solid #E3E7EC;
+  border-right: 10vw solid #E3E7EC;
   
 }
 
 .background_container{
-  background: url(https://wallpaperaccess.com/full/244510.jpg) no-repeat;
-  height: 100%; 
+  background: url(https://cdn.statically.io/img/www.itl.cat/pngfile/big/0-7383_full-hd-1080p-cars-wallpapers-desktop-backgrounds.jpg) no-repeat;
+  min-height: 100vh;  
   background-position: center;
   background-size: cover;
 }
 
 .bodycontainer{
-  // padding-left: 10%;
-  // padding-right: 10%;
-  // background-color:#A2B2C1;
-  // border-left:200px solid #E3E7EC;
-  // border-right: 200px solid #E3E7EC;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 $react-rater-active: #ffef00!default;
@@ -83,15 +84,6 @@ $react-rater-active: #ffef00!default;
   margin: auto;
   width: 100%;
   padding: 5%;
-  text-align: left;
-}
-
-.app-container{
-  opacity: 0.8;
-  margin: auto;
-  width: 75%;
-  padding-left: 30%;
-  padding-right: 15%;
   text-align: left;
 }
 
@@ -123,6 +115,7 @@ td{
 
 .topics{
   padding-left: 10%;
+  color: #8FBC8F;
 }
 
 .app-form-item {
@@ -154,7 +147,7 @@ td{
 
 @media (min-width: 768px) {
   .app-cardd {
-    width: 350px;
+    width: 500px;
     position: relative;
     left: 700px;
   }
@@ -171,6 +164,8 @@ td{
 .app-cardd-content .app-cardd-content-inner,
 .app-cardd-content .app-cardd-content-inner {
   padding: 40px;
+  background-color: #FFFFFF;
+  opacity: 0.8;
 }
 body{
   overflow-x: hidden;
@@ -230,6 +225,7 @@ section {
   display: flex;
   position: absolute;
   transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  z-index: -2;
   .cardd {
     flex: 1;
     min-width: 200px;
@@ -249,6 +245,7 @@ section {
 $i: 0;
 @for $i from 0 through 29 {
     .cards-slider.active-slide-#{$i} #cardd-#{$i} {
+      height: 100%;
       opacity: 1;
       transform: scale(1.5);
       background-color: #f3f3f3;
@@ -292,7 +289,6 @@ $i: 0;
     display: block;
     width: 100%;
     height: 264px;
-    // outline: 5px solid #61DAFB;
     position: absolute;
     top: 0; 
     left: 0;
@@ -301,8 +297,8 @@ $i: 0;
 
 
 .page-wrap {
-  border-left:200px solid #E3E7EC;
-  border-right: 200px solid #E3E7EC;
+  border-left:12vw solid #E3E7EC;
+  border-right: 12vw solid #E3E7EC;
   min-height: calc(100vh - 300px);
 }
 // .page-wrap:after {
@@ -317,6 +313,7 @@ $i: 0;
   background-color: #3b4d64;
   text-align: center;
   color: white;
+  overflow-x:auto;
 }
 
 .footer {

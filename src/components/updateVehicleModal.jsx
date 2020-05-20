@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, FormFeedback,FormText} from 'reactstrap';
 import { Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -17,7 +17,11 @@ export class UpdateVehicleModal extends Component {
             fueltype:this.props.props && this.props.props.fuelType,
             type:null,
             image:null,
-            selectedFile:null
+            selectedFile:null,
+            validate:{
+                priceState:''
+            },
+            required_inputs:false
         }
     }
 
@@ -25,6 +29,15 @@ export class UpdateVehicleModal extends Component {
         this.setState({name:e.target.value,vehicleId:this.props.props.vehicleId})
     }
     handlePrice=(e)=>{
+        const priceRex =  /^[0-9]+$/;
+        const { validate } = this.state
+          if (priceRex.test(e.target.value)) {
+            validate.priceState = 'has-success'
+          } else {
+            validate.priceState = 'has-danger'
+          }
+        this.setState({ validate })
+
         this.setState({price:e.target.value,vehicleId:this.props.props.vehicleId})
     }
     
@@ -117,7 +130,11 @@ export class UpdateVehicleModal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label>Price Per hour</Label>
-                                <Input onChange={this.handlePrice} type="number" name="vehicleRentalPrice" defaultValue={this.props.props && parseFloat(this.props.props.vehicleRentalPrice)} />
+                                <Input onChange={this.handlePrice} type="number" name="vehicleRentalPrice" defaultValue={this.props.props && parseFloat(this.props.props.vehicleRentalPrice)} 
+                                valid={this.state.validate.priceState === 'has-success'} invalid={this.state.validate.priceState === 'has-danger'}/>
+                                <FormFeedback invalid>
+                                    The price should be only numerical
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label>Vehicle Type</Label>

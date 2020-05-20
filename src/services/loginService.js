@@ -50,7 +50,7 @@ const login=createLogic({
                     history.push('/admin');
                 }
                 else if(roleId===2){
-                    history.push('/custdash')
+                    history.push('/')
                 }
                 
                 return data

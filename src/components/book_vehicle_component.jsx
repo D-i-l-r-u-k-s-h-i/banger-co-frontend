@@ -7,6 +7,7 @@ import { getTimeSlotActions} from '../actions'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import SchedularModal from './schedular_modal';
 import ReviewsComponent from './reviews_component';
+import history from '../history'
 
 export class BookVehicleComponent extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export class BookVehicleComponent extends Component {
         this.state = {
             loading: false,
             modalShow: false,
-            vehicleid:this.props.props.location.state.property.id,
+            vehicleid:this.props.props.location.state.property.vehicleId,
             timeSlots:[],
             timeslotData:props.timeslotData
         }
@@ -49,6 +50,15 @@ export class BookVehicleComponent extends Component {
         
     }
 
+    scheduleOnClick=()=>{
+        if(localStorage.getItem("jwt")){
+            this.setState({ modalShow: true })
+        }
+        else{
+            history.push('/login')
+        }
+    }
+
     refreshList(){
         this.props.getTimeSlotActions.getTimeSlots(this.state)
 
@@ -56,6 +66,7 @@ export class BookVehicleComponent extends Component {
     }
 
     render() {
+        console.log(this.props.props.location.state.property)
         let property = this.props.props.location.state && this.props.props.location.state.property
 
         let modalClose = () => this.setState({ modalShow: false });
@@ -80,7 +91,7 @@ export class BookVehicleComponent extends Component {
 
                                 <ButtonToolbar>
                                     <Button varient='primary'
-                                        onClick={()=>this.setState({ modalShow: true })}>
+                                        onClick={this.scheduleOnClick}>
                                         Schedule
                                     </Button>
                                     <SchedularModal props={this.props} type={"VEHICLE"} show={this.state.modalShow} onHide={modalClose} />

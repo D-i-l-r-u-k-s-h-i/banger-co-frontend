@@ -73,7 +73,7 @@ export class SliderComponent extends Component {
         return(
             <div className="page">
                 <div className="topics">
-                <h1>Select your car here.</h1>
+                <h1>-----Select your car here-----</h1>
                 </div>
             <section>
                 <button className="btn btn-primary active"

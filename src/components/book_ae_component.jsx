@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
 import { getTimeSlotActions} from '../actions'
+import history from '../history'
 
 export class BookAEComponent extends Component {
     constructor(props) {
@@ -52,6 +53,15 @@ export class BookAEComponent extends Component {
         console.log(this.state)
     }
 
+    scheduleOnClick=()=>{
+        if(localStorage.getItem("jwt")){
+            this.setState({ modalShow: true })
+        }
+        else{
+            history.push('/login')
+        }
+    }
+
     render() {
         console.log(this.props)
         let property = this.props.location.state && this.props.location.state.property
@@ -80,7 +90,7 @@ export class BookAEComponent extends Component {
 
                                 <ButtonToolbar>
                                     <Button varient='primary'
-                                        onClick={()=>this.setState({ modalShow: true })}>
+                                        onClick={this.scheduleOnClick}>
                                         Schedule
                                     </Button>
                                     <SchedularModal props={this.props} type={"EQUIPMENT"} show={this.state.modalShow} onHide={modalClose} />

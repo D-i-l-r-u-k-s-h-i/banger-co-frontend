@@ -11,6 +11,7 @@ import {
 import ConfirmDeleteModal  from './confirmDeleteModal';
 import AddVehicleModal from './addVehicleModal';
 import UpdateVehicleModal from './updateVehicleModal';
+import {Spinner} from 'react-bootstrap'
 
 export class EditRemoveVehiclesComponent extends Component {
     constructor(props){
@@ -91,6 +92,7 @@ export class EditRemoveVehiclesComponent extends Component {
                 <button type="button" className="btn btn-primary btn-circle btn-xl" onClick={() => this.setState({ addVehiclesModalShow: true })}>
                     &#43; Vehicle</button>
                 <br/><hr/>
+                {vehicleData==null?<div className="text-center"><br/><Spinner animation="border" variant="info"/></div>:null}
                 <Masonry
                     breakpointCols={breakpointColumnsObj}
                     className="my-masonry-grid"

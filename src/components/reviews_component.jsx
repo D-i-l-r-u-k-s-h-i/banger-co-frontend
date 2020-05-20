@@ -12,7 +12,7 @@ export class ReviewsComponent extends Component {
 
         this.state = {
             reviewData: [],
-            vehicleid:this.props.vehicleid, //check whether this is actually needed
+            vehicleid:this.props.location.state.property.vehicleId, //check whether this is actually needed
             review:null,
             loading: false
         };
@@ -51,7 +51,7 @@ export class ReviewsComponent extends Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.props.location.state.property.vehicleId)
         return (
             <div className="form_container">
                 <div className="row">

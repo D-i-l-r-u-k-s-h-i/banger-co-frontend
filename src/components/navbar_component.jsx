@@ -45,7 +45,7 @@ function NavBarComponent() {
     function loginBtn(){
         return(
             <Nav className="ml-auto">
-                <Nav.Link href="/">Login</Nav.Link>
+                <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
         )
     }
@@ -53,9 +53,9 @@ function NavBarComponent() {
     return (
         <div>
             <Navbar bg="dark" variant="dark" fixed='top'>
-                <Navbar.Brand href="/custdash">&#127345;anger &#8523; &#8450;o</Navbar.Brand>
+                <Navbar.Brand href="/">&#127345;anger &#8523; &#8450;o</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/custdash">Home</Nav.Link>
+                    <Nav.Link href="/">Home</Nav.Link>
                 </Nav>
                {localStorage.getItem("jwt")?content():loginBtn()}
             </Navbar>

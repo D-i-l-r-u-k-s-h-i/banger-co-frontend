@@ -47,7 +47,7 @@ export class ReviewForm extends Component {
     // }
 
     render() {
-      console.log(this.props.props)
+      console.log(this.props)
         return (
             <React.Fragment>
         <form onSubmit={this.onSubmit}>

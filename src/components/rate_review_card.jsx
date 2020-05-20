@@ -11,7 +11,7 @@ export class RateReviewCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            vehicleid:this.props.props.id,
+            vehicleid:this.props.props.vehicleId,
             rating:null,
             visible:false,
             // equipmentId:null
@@ -44,7 +44,7 @@ export class RateReviewCard extends Component {
 
     render() {
         const ratingg=this.props;
-        console.log(this.props.RatingData)
+        console.log(this.props.props.vehicleId)
         return (
             <div>
                 <Card body outline color="warning" >
@@ -62,7 +62,7 @@ export class RateReviewCard extends Component {
                     <div className="badge badge-warning text-wrap">
                         Leave a review here</div></span>
                     <CardText>
-                        <ReviewForm props={this.props.props.id} />
+                        <ReviewForm props={this.props.props.vehicleId} />
                     </CardText>
 
                 </Card>

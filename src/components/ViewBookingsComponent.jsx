@@ -56,9 +56,9 @@ export class ViewBookingsComponent extends Component {
             this.props.vehiclesBookedByUserActions.getVehiclesBookedByUser(this.state)
         }
 
-        window.onbeforeunload = function () {
-            return false;
-        }
+        // window.onbeforeunload = function () {
+        //     return false;
+        // }
     }
     //reusing the same component on update of props
     componentDidUpdate(prevProps){

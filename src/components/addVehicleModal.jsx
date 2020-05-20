@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, FormFeedback,FormText} from 'reactstrap';
 import { Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -16,27 +16,54 @@ export class AddVehiclemodal extends Component {
             fueltype:"Petrol",
             type:null,
             image:null,
-            selectedFile:null
+            selectedFile:null,
+            validate:{
+                priceState:''
+            },
+            required_inputs:false
+        }
+    }
+
+    checkRequiredInputs=()=>{
+        const {name,price, gearbox,fueltype, type, image,selectedFile, validate}=this.state
+
+        if(name!=null && price!=null && gearbox!=null && selectedFile !=null && fueltype!=null && validate.priceState!='has-danger'){
+            this.setState({required_inputs:true})
+            return true
         }
     }
 
     handleVehicleName=(e)=>{
         this.setState({name:e.target.value})
+        this.checkRequiredInputs()
     }
     handlePrice=(e)=>{
+        const priceRex =  /^[0-9]+$/;
+        const { validate } = this.state
+          if (priceRex.test(e.target.value)) {
+            validate.priceState = 'has-success'
+          } else {
+            validate.priceState = 'has-danger'
+          }
+        this.setState({ validate })
+
         this.setState({price:e.target.value})
+        this.checkRequiredInputs()
     }
     
     handleVehicleType=(e)=>{
         this.setState({type:e.target.value})
+        this.checkRequiredInputs()
     }    
 
     handleFuelChange=(e)=>{
         this.setState({fueltype:e.target.value})
+        this.checkRequiredInputs()
     }
 
     handleGearboxChange=(e)=>{
         this.setState({gearbox:e.target.value})
+        this.checkRequiredInputs()
     }
 
     fileChangeHandler = (event) => {
@@ -51,6 +78,8 @@ export class AddVehiclemodal extends Component {
         reader.onload = () => {
             this.setState({image: reader.result});
         };
+
+        this.checkRequiredInputs()
     }
 
     // handleUrl=(e)=>{
@@ -116,7 +145,11 @@ export class AddVehiclemodal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label>Price Per hour</Label>
-                                <Input onChange={this.handlePrice} type="text" name="vehicleRentalPrice" placeholder="Hourly Rate" />
+                                <Input onChange={this.handlePrice} type="text" name="vehicleRentalPrice" placeholder="Hourly Rate" 
+                                valid={this.state.validate.priceState === 'has-success'} invalid={this.state.validate.priceState === 'has-danger'}/>
+                            <FormFeedback invalid>
+                                    The price should be only numerical
+                            </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label>Vehicle Type</Label>
@@ -130,7 +163,7 @@ export class AddVehiclemodal extends Component {
                                     Add image of your craft here
                                     </FormText>
                             </FormGroup>
-                            <Button onClick={this.handleAddBtnClick} className="btn-lg btn-dark btn-block" type="submit">Add</Button>
+                            {this.state.required_inputs ?<Button onClick={this.handleAddBtnClick} className="btn-lg btn-dark btn-block" type="submit">Add</Button>:<Button onClick={this.handleAddBtnClick} className="btn-lg btn-dark btn-block" type="submit" disabled>Add</Button>}
                         </Form>
                     </Modal.Body>
                 </Modal>

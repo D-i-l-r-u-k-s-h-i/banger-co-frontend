@@ -3,21 +3,26 @@ import {confirmPickupActions,confirmReturnActions,blacklistUserActions} from '..
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter} from 'react-router-dom'
+import {Row, Col} from 'reactstrap'
+
 export class BookingForAdmin extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             bookingData: null,
-            bookingId:this.props.booking.bookingId
+            bookingId:this.props.booking.bookingId,
+            bookingStatusType:this.props.booking.bookingStatus.bookingStatusType
         };
     }
 
     onReturn=()=>{
+        this.setState({bookingStatusType:'RETURNED'})
         this.props.confirmReturnActions.confirmReturn(this.state)
     }
 
     onPickup=()=>{
+        this.setState({bookingStatusType:'PICKED_UP'})
         this.props.confirmPickupActions.confirmPickup(this.state)
     }
 
@@ -26,11 +31,13 @@ export class BookingForAdmin extends Component {
     }
 
     render() {
+        console.log(this.props.booking.bookingStatus.bookingStatusType)
+
         const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total, customer, late} = this.props.booking;
-        const { bookingStatusType } = this.props.booking.bookingStatus;
+        const { bookingStatusType } = this.state;
         return (
             <div className="media mb-3">
-                <div className="media-body p-2 shadow-sm rounded bg-light border">
+                <div className="media-body p-4 shadow-sm rounded bg-light border">
                     <small className="float-right text-muted">{bookingStatusType}</small>
                     <small className="float-left text-muted">{customer.customerFName} {customer.customerLName}  ({customer.customerUserName})</small><br/><hr/>
                     Rental Period: {rentalPeriod}hrs<br />
@@ -40,18 +47,18 @@ export class BookingForAdmin extends Component {
                         {
                             vehicleList && vehicleList.map((property, index) => {
                                 return (
-                                    <table className="list_table">
+                                   
                                         <li key={index} >
-                                            <tr>
-                                                <td>
-                                                    <h6 className="mt-0 mb-1 text-muted">{property.vehicle.vehicleName}</h6>
-                                                </td>
-                                                <td>
+                                             <Row >
+                                            <Col xs='6'>
+                                                    <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.vehicle.vehicleName}</h6>
+                                                </Col>
+                                                <Col xs='6'>
                                                     Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
-                                                </td>
-                                            </tr>
+                                                </Col>
+                                            </Row>
                                         </li>
-                                    </table>
+                                   
                                 )
                             })
                         }
@@ -60,18 +67,18 @@ export class BookingForAdmin extends Component {
                         {
                             additionalEquipmentList && additionalEquipmentList.map((property, index) => {
                                 return (
-                                    <table className="list_table">
+                                    
                                         <li key={index} >
-                                            <tr>
-                                                <td>
-                                                    <h6 className="mt-0 mb-1 text-muted">{property.equipment.equipmentName}</h6>
-                                                </td>
-                                                <td>
+                                            <Row >
+                                            <Col xs='6'>
+                                                    <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.equipment.equipmentName}</h6>
+                                                    </Col>
+                                                <Col xs='6'>
                                                     Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
-                                                </td>
-                                            </tr>
+                                                </Col>
+                                                </Row>
                                         </li>
-                                    </table>
+                                    
                                 )
                             })
                         }
@@ -82,8 +89,9 @@ export class BookingForAdmin extends Component {
                             <td>Rs.{total}.00</td>
                         </tr>
                     </table>
-                    {bookingStatusType==="PICKED_UP" && bookingStatusType!=="CANCELLED"?<div><button onClick={this.onReturn} type="button" class="btn btn-info float-right">Confirm Return</button></div>
-                    :bookingStatusType==="PICKED_UP" || bookingStatusType!=="CANCELLED"? null
+                    
+                    {bookingStatusType==="PICKED_UP" ?<div><button onClick={this.onReturn} type="button" class="btn btn-info float-right">Confirm Return</button></div>
+                    :bookingStatusType==="CANCELLED" || "RETURNED"? null
                     :bookingStatusType==="PENDING" && late ? <div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onPickup} type="button" class="btn btn-outline-primary float-right mr-2">Confirm Pickup</button></div>
                     :<div><button onClick={this.onPickup} type="button" class="btn btn-secondary float-right">Confirm Pickup</button></div>}
                 </div>

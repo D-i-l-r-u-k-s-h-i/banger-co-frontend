@@ -14,7 +14,7 @@ export const ADD_REVIEW="/reviews/save"
 
 export const ADD_RATING="/reviews/save"
 
-export const GET_REVIEWS="/reviews/get/"
+export const GET_REVIEWS="/reviews/getreviews/"
 
 export const GET_TIME_SLOTS="bookings/timeslots/"
 

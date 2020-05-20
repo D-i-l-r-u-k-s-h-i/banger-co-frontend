@@ -93,7 +93,7 @@ export class Booking extends Component {
                     <li key={index} >
                       <tr>
                         <td>
-                          <h6 className="mt-0 mb-1 text-muted">{property.vehicle.vehicleName}</h6>
+                          <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.vehicle.vehicleName}</h6>
                         </td>
                         <td>
                           Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
@@ -113,7 +113,7 @@ export class Booking extends Component {
                     <li key={index} >
                       <tr>
                         <td>
-                          <h6 className="mt-0 mb-1 text-muted">{property.equipment.equipmentName}</h6>
+                          <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.equipment.equipmentName}</h6>
                         </td>
                         <td>
                           Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
@@ -158,7 +158,7 @@ export class Booking extends Component {
                       <li key={index} >
                         <tr>
                           <td >
-                            <h6 className="mt-0 mb-1 text-muted">{property.vehicle.vehicleName}</h6>
+                            <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.vehicle.vehicleName}</h6>
                           </td>
                           <td>
                             Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
@@ -179,7 +179,7 @@ export class Booking extends Component {
                       <li key={index} >
                         <tr>
                           <td>
-                            <h6 className="mt-0 mb-1 text-muted">{property.equipment.equipmentName}</h6>
+                            <h6 className="mt-0 mb-1 text-secondary" style={{'font-family': 'Arial, Helvetica, sans-serif'}}>{property.equipment.equipmentName}</h6>
 
                           </td>
                           <td >

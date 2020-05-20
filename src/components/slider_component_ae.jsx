@@ -73,7 +73,7 @@ export class SliderComponentAE extends Component {
         return(
             <div className="page">
                 <div className="topics">
-                    <h1>Travel equiment that you might need.</h1>
+                    <h1>-----Travel equiment that you might need-----</h1>
                 </div>
             <section>
                 <button className="btn btn-primary active"
