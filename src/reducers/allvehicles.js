@@ -37,9 +37,9 @@ export default handleActions({
         console.log(state)
         if (state.vehicleData && Array.isArray(state.vehicleData) && state.vehicleData.length !== 0) {
             state.vehicleData && state.vehicleData.map((removeId, index) => {
-                console.log(removeId.id)
+                console.log(removeId.vehicleId)
                 console.log(state.removeItem.vehicleData)
-                if (removeId.id == state.removeItem.vehicleData) {
+                if (removeId.id == state.removeItem.vehicleData && payload.status=='DELETE') {
                     return state.vehicleData.splice(index, 1);
                 }
             })
@@ -50,7 +50,8 @@ export default handleActions({
                 ...state.removeItem,
                 loading: false,
                 removeItem: true,
-                removeItemError: undefined
+                removeItemError: undefined,
+                message:payload.message
             }
         }
     },

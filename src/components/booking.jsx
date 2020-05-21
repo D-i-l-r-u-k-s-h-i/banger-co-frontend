@@ -163,7 +163,7 @@ export class Booking extends Component {
                           <td>
                             Rs.{property.vehicle.vehicleRentalPrice}.00 per hr x {rentalPeriod}
                           </td>
-                          {this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteVehicleItem(property.vehicle.vehicleId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
+                          {bookingStatusType !== "PICKED_UP" && this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteVehicleItem(property.vehicle.vehicleId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
                         </tr>
                       </li>
                     </table>
@@ -185,7 +185,7 @@ export class Booking extends Component {
                           <td >
                             Rs.{property.equipment.aeRentalPrice}.00 per hr x {rentalPeriod}
                           </td>
-                          {this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteEquipmentItem(property.equipment.equipmentId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
+                          {bookingStatusType !== "PICKED_UP" && this.listLength() > 1 ? <td className="remove_icon"><button onClick={() => this.onDeleteEquipmentItem(property.equipment.equipmentId)} type="button" class="btn btn-light"><span>&#10062;</span></button></td> : null}
                         </tr>
                       </li>
                     </table>

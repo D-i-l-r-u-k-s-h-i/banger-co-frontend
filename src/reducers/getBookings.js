@@ -87,7 +87,8 @@ export default handleActions({
                         state.bookingData[index].vehicleList && state.bookingData[index].vehicleList.map((removeItemId, index2) => {
                             // console.log(removeItemId.vehicle.vehicleId +" "+state.removeItem.bookingData.vehicleId)
                             if (removeItemId.vehicle.vehicleId == state.removeItem.bookingData.vehicleId) {
-                                // console.log(state.bookingData[index].vehicleList)
+                                // console.log(removeItemId)
+                                state.bookingData[index].total=state.bookingData[index].total - (state.bookingData[index].rentalPeriod * removeItemId.vehicle.vehicleRentalPrice)
                                 return state.bookingData[index].vehicleList.splice(index2, 1);
                             }
                             
@@ -99,6 +100,8 @@ export default handleActions({
                             // console.log(removeItemId.equipment.equipmentId +" "+state.removeItem.bookingData.equipmentId)
                             if (removeItemId.equipment.equipmentId == state.removeItem.bookingData.equipmentId) {
                                 // console.log(state.bookingData[index].additionalEquipmentList)
+                                // console.log(removeItemId)
+                                state.bookingData[index].total=state.bookingData[index].total - (state.bookingData[index].rentalPeriod * removeItemId.equipment.aeRentalPrice)
                                 return state.bookingData[index].additionalEquipmentList.splice(index2, 1);
                             }
                             
@@ -166,6 +169,7 @@ export default handleActions({
                                     // console.log(obj)
                                     // console.log(state)
                                     // console.log(state.bookingData[index])
+                                    state.bookingData[index].total=state.bookingData[index].total + (state.bookingData[index].rentalPeriod * equipId.aeRentalPrice)
 
                                     state.availableItemsData.additionalEquipmentList.splice(index2, 1)
                                     return state.bookingData[index].additionalEquipmentList.push(obj);
@@ -189,6 +193,7 @@ export default handleActions({
                                     // console.log(obj)
                                     // console.log(state)
                                     // console.log(state.bookingData[index])
+                                    state.bookingData[index].total=state.bookingData[index].total + (state.bookingData[index].rentalPeriod * vehicleId.vehicleRentalPrice)
 
                                     state.availableItemsData.vehicleList.splice(index2, 1)
                                     return state.bookingData[index].vehicleList.push(obj);

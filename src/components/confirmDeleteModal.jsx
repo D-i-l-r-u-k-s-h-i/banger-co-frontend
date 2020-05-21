@@ -15,7 +15,7 @@ export class ConfirmDeleteModal extends Component {
     }
 
     onDeleteBtnClick=()=>{
-        this.props.deleteVehicleActions.deleteVehicle(this.props.props.id)
+        this.props.deleteVehicleActions.deleteVehicle(this.props.props.vehicleId)
         this.props.onHide()
     }
 

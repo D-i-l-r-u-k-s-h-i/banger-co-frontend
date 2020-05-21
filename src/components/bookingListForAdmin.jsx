@@ -2,6 +2,7 @@ import React from 'react'
 import BookingForAdmin from './booking_for_admin';
 
 function BookingListForAdmin(props) {
+  console.log(props.bookings)
     return (
         <div>
             <h5 className="text-muted mb-4">

@@ -11,8 +11,7 @@ import {
 import ConfirmDeleteModal  from './confirmDeleteModal';
 import AddVehicleModal from './addVehicleModal';
 import UpdateVehicleModal from './updateVehicleModal';
-import {Spinner} from 'react-bootstrap'
-
+import {Spinner, Toast} from 'react-bootstrap'
 export class EditRemoveVehiclesComponent extends Component {
     constructor(props){
         super(props);
@@ -21,7 +20,8 @@ export class EditRemoveVehiclesComponent extends Component {
             modalShow: false, 
             editModalShow: false,
             addVehiclesModalShow: false,
-            vehicle:null
+            vehicle:null,
+            show:false,
         }
     }
 
@@ -49,7 +49,10 @@ export class EditRemoveVehiclesComponent extends Component {
         };
     }
 
-
+    onDeleteModalShow=()=>{
+        this.setState({show:true})
+    }
+    
     componentDidMount(){
         this.props.allVehicleActions.allVehicles(this.state)
     }
@@ -59,8 +62,10 @@ export class EditRemoveVehiclesComponent extends Component {
         let editModalClose = () => this.setState({ editModalShow: false });
         let addVehicleModalClose = () => this.setState({ addVehiclesModalShow: false });
 
+        let toastClose = () => this.setState({ show: false });
+
         const { vehicleData}=this.state
-        console.log(vehicleData)
+        console.log(this.props.removeItem)
 
         const breakpointColumnsObj = {
             default: 4,
@@ -89,6 +94,24 @@ export class EditRemoveVehiclesComponent extends Component {
 
         return (
             <div className="bodycontainer">
+                <div
+                    aria-live="polite"
+                    aria-atomic="true"
+                    style={{
+                        position: 'relative',
+                        minHeight: '25px',
+                    }}>
+                    <Toast show={this.state.show} onClose={toastClose} autohide={true}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                        }}>
+                        <Toast.Header>
+                        </Toast.Header>
+                        <Toast.Body>{this.props.removeItem && this.props.removeItem.message}</Toast.Body>
+                    </Toast>
+                </div>
                 <button type="button" className="btn btn-primary btn-circle btn-xl" onClick={() => this.setState({ addVehiclesModalShow: true })}>
                     &#43; Vehicle</button>
                 <br/><hr/>
@@ -101,7 +124,7 @@ export class EditRemoveVehiclesComponent extends Component {
                     {vehicles}
                 </Masonry>
                 
-                <ConfirmDeleteModal show={this.state.modalShow} onHide={modalClose} props={this.state.vehicle}/> 
+                <ConfirmDeleteModal show={this.state.modalShow} onHide={modalClose} props={this.state.vehicle} onShow={this.onDeleteModalShow}/> 
                 <AddVehicleModal show={this.state.addVehiclesModalShow} onHide={addVehicleModalClose} props={this.state.vehicle}/> 
                 <UpdateVehicleModal show={this.state.editModalShow} onHide={editModalClose} props={this.state.vehicle}/>
             </div>

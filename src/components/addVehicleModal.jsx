@@ -122,7 +122,7 @@ export class AddVehiclemodal extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form >
-                            <h1><span className="font-weight-bold">&#127345;anger &#8523; &#8450;o &#128664;</span></h1>
+                            <h1><span className="font-weight-bold">Banger &#8523; &#8450;o &#128664;</span></h1>
                             <h2 className="text-center">Add Vehicle</h2><hr />
                             <FormGroup>
                                 <Label>Vehicle Name</Label>

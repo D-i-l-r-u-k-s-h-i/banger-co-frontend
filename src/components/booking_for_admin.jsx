@@ -31,10 +31,13 @@ export class BookingForAdmin extends Component {
     }
 
     render() {
-        console.log(this.props.booking.bookingStatus.bookingStatusType)
+        console.log(this.props.booking)
 
-        const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total, customer, late} = this.props.booking;
+        const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total, customer, lateReturn, latePickup} = this.props.booking;
         const { bookingStatusType } = this.state;
+
+        console.log(lateReturn)
+
         return (
             <div className="media mb-3">
                 <div className="media-body p-4 shadow-sm rounded bg-light border">
@@ -90,9 +93,10 @@ export class BookingForAdmin extends Component {
                         </tr>
                     </table>
                     
-                    {bookingStatusType==="PICKED_UP" ?<div><button onClick={this.onReturn} type="button" class="btn btn-info float-right">Confirm Return</button></div>
-                    :bookingStatusType==="CANCELLED" || "RETURNED"? null
-                    :bookingStatusType==="PENDING" && late ? <div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onPickup} type="button" class="btn btn-outline-primary float-right mr-2">Confirm Pickup</button></div>
+                    {bookingStatusType==="PICKED_UP" && !lateReturn ?<div><button onClick={this.onReturn} type="button" class="btn btn-info float-right">Confirm Return</button></div>
+                    :bookingStatusType==="PICKED_UP" && lateReturn ?<div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onReturn} type="button" class="btn btn-outline-warning mr-2 float-right">Confirm Return</button></div>
+                    :bookingStatusType==="CANCELLED" || bookingStatusType==="RETURNED"? null
+                    :bookingStatusType==="PENDING" && latePickup ? <div><button onClick={this.onBlacklist} type="button" class="btn btn-danger float-right">Blacklist User</button><button onClick={this.onPickup} type="button" class="btn btn-outline-primary float-right mr-2">Confirm Pickup</button></div>
                     :<div><button onClick={this.onPickup} type="button" class="btn btn-secondary float-right">Confirm Pickup</button></div>}
                 </div>
             </div>

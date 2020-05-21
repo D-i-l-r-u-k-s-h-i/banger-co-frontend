@@ -7,8 +7,10 @@ export class VehiclePage extends Component {
     render() {
         return (
             <div>
+                <div className='page-wrap'>
                 <NavBarComponent/>
                 <BookVehicleComponent props={this.props}/>
+                </div>
                 <Footer/>
             </div>
         )

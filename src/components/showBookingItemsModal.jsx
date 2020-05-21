@@ -20,7 +20,7 @@ export class ShowBookingItemsModal extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps)
+        // console.log(nextProps)
         let newProps={}
         if (nextProps.availableItemsData && nextProps.availableItemsData !== prevState.availableItemsData) {
             newProps.availableItemsData = nextProps.availableItemsData
@@ -51,7 +51,7 @@ export class ShowBookingItemsModal extends Component {
     }
 
     onAddToBookingClick=(item)=>{
-        console.log(item)
+        // console.log(item)
 
         let obj={
             vehicleId:item.vehicleId!=undefined? item.vehicleId:0,
@@ -65,8 +65,8 @@ export class ShowBookingItemsModal extends Component {
     }
 
     render() {
-        console.log(this.props.props)
-        console.log(this.state)
+        // console.log(this.props.props)
+        // console.log(this.state)
 
         let {availableItemsData}=this.state
 
