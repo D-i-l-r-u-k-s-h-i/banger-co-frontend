@@ -6,8 +6,10 @@ import Footer from '../components/footer'
 function AdditionalEquipmentPage() {
     return (
         <div>
+            <div className='page-wrap'>
             <NavBarComponent/>
             <BookAEComponent/>
+            </div>
             <Footer/>
         </div>
     )

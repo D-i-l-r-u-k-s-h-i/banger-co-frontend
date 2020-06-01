@@ -18,10 +18,12 @@ export class UpdateVehicleModal extends Component {
             type:null,
             image:null,
             selectedFile:null,
+            availability:this.props.props && this.props.props.availabilityStatus,
             validate:{
                 priceState:''
             },
-            required_inputs:false
+            required_inputs:false,
+            isChecked:true
         }
     }
 
@@ -67,13 +69,21 @@ export class UpdateVehicleModal extends Component {
         };
     }
 
-    // handleUrl=(e)=>{
-    //     this.setState({img:e.target.value,vehicleId:this.props.props.id})
-    // }
+    handleCheckBox=(e)=>{
+        console.log(e.currentTarget.value)
+       
+        if(this.props.props && this.props.props.availabilityStatus==false || this.props.props && this.props.props.availabilityStatus=='false'){
+            this.setState({isChecked:true})
+        }
+        else{
+            this.setState({isChecked:false})
+        }
+        this.setState({isChecked:!this.state.isChecked,availability:e.currentTarget.value,vehicleId:this.props.props.vehicleId})
+    }
 
     handleUpdateBtnClick=(e)=>{
         e.preventDefault();
-        let{selectedFile, image,name, gearbox,fueltype,type,price,vehicleId}=this.state
+        let{selectedFile, image,name, gearbox,fueltype,type,price,availability,vehicleId}=this.state
         
         const data = new FormData() 
         selectedFile && data.append('imgFile', selectedFile,selectedFile.name)
@@ -86,12 +96,14 @@ export class UpdateVehicleModal extends Component {
         type && data.append('vehicleType', type)
         gearbox && data.append('gearboxType', gearbox)
         fueltype && data.append('fuelType', fueltype)
+        availability && data.append('availabilityStatus', availability)
 
         this.props.updateVehicleActions.updateVehicle(data)
         this.props.onHide()
     }
 
     render() {
+        // console.log(this.state.availability)
         return (
             <div>
                 <Modal
@@ -112,6 +124,11 @@ export class UpdateVehicleModal extends Component {
                             <FormGroup>
                                 <Label>Vehicle Name</Label>
                                 <Input onChange={this.handleVehicleName} name="vehicleName" type="text" defaultValue={this.props.props&&this.props.props.vehicleName} />
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input onInput={this.handleCheckBox} name="availabilityStatus" type="checkbox" value={this.state.isChecked}/>{'Is Available'}
+                                </Label>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect1">GearBox Type</Label>

@@ -7,8 +7,10 @@ export class EditEquipmentsPage extends Component {
     render() {
         return (
             <div>
+                <div className='page-wrap_without_border'>
                 <NavBarComponent/>
                 <EditRemoveAEComponent/>
+                </div>
                 <Footer/>
             </div>
         )

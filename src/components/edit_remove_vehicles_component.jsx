@@ -4,7 +4,7 @@ import {
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
   import Masonry from 'react-masonry-css'
-  import { allVehicleActions,deleteVehicleActions} from '../actions'
+  import { availableVehicleActions,deleteVehicleActions} from '../actions'
   import { connect } from 'react-redux'
   import { bindActionCreators } from 'redux'
   import { withRouter} from 'react-router-dom'
@@ -54,7 +54,7 @@ export class EditRemoveVehiclesComponent extends Component {
     }
     
     componentDidMount(){
-        this.props.allVehicleActions.allVehicles(this.state)
+        this.props.availableVehicleActions.availableVehicles(this.state)
     }
 
     render() {
@@ -65,7 +65,7 @@ export class EditRemoveVehiclesComponent extends Component {
         let toastClose = () => this.setState({ show: false });
 
         const { vehicleData}=this.state
-        console.log(this.props.removeItem)
+        console.log(this.props)
 
         const breakpointColumnsObj = {
             default: 4,
@@ -80,10 +80,12 @@ export class EditRemoveVehiclesComponent extends Component {
                     <CardImg top width="100%" src={`data:image/png;base64,${vehicle.imgFile}`}/>
                     <CardBody>
                         <CardTitle className="font-weight-bold">{vehicle.vehicleName}</CardTitle>
+                        {vehicle.availabilityStatus==true || vehicle.availabilityStatus== "true"?<CardText className="badge badge-primary text-wrap">Available</CardText>:<CardText className="badge badge-warning text-wrap">Not Available</CardText>}
                         <CardSubtitle>Gearbox Type: {vehicle.gearboxType}</CardSubtitle>
                         <CardText className="text-muted">FuelType: {vehicle.fuelType}</CardText>
                         <CardText className="font-weight-normal">Type: {vehicle.vehicleType}</CardText>
                         <CardText className="font-weight-normal">Per hour Rate: Rs.{vehicle.vehicleRentalPrice}.00</CardText>
+                        
                         <Button onClick={() => this.setState({ editModalShow: true ,vehicle:vehicle})} className="btn btn-info ml-1 float-right">Edit</Button>
                         <Button onClick={() => this.setState({ modalShow: true ,vehicle:vehicle})} className="btn btn-danger float-right">Remove</Button>
                     </CardBody>
@@ -134,7 +136,7 @@ export class EditRemoveVehiclesComponent extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        allVehicleActions: bindActionCreators(allVehicleActions, dispatch),
+        availableVehicleActions: bindActionCreators(availableVehicleActions, dispatch),
         deleteVehicleActions:bindActionCreators(deleteVehicleActions, dispatch),
     }
 }

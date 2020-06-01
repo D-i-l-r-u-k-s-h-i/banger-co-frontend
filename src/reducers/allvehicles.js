@@ -1,4 +1,4 @@
-import {allVehicleTypes,vehiclesBookedByUserTypes,deleteVehicleTypes,addVehicleTypes,updateVehicleTypes,getRentalPriceTypes} from '../actions'
+import {allVehicleTypes,vehiclesBookedByUserTypes,deleteVehicleTypes,addVehicleTypes,updateVehicleTypes,getRentalPriceTypes,availableVehicleTypes} from '../actions'
 
 import {handleActions} from "redux-actions"
 
@@ -15,6 +15,15 @@ export default handleActions({
         ...state,loading:false,vehicleData:payload
     }),
     [allVehicleTypes.FAIL_GET_ALL_VEHICLES]:(state,{payload})=>({
+        ...state,loading:false,vehicleData:null
+    }),
+    [availableVehicleTypes.GET_AVAILABLE_VEHICLES]:(state,{payload})=>({
+        ...state,loading:true
+    }),
+    [availableVehicleTypes.SUCCESS_GET_AVAILABLE_VEHICLES]:(state,{payload})=>({
+        ...state,loading:false,vehicleData:payload
+    }),
+    [availableVehicleTypes.FAIL_GET_AVAILABLE_VEHICLES]:(state,{payload})=>({
         ...state,loading:false,vehicleData:null
     }),
     [vehiclesBookedByUserTypes.GET_VEHICLES_BOOKED_BY_USER]:(state,{payload})=>({
@@ -113,10 +122,11 @@ export default handleActions({
         console.log(object)
         if (state.vehicleData && Array.isArray(state.vehicleData) && state.vehicleData.length !== 0) {
             state.vehicleData && state.vehicleData.map((removeId, index) => {
-                // console.log(removeId.id)
-                // console.log(state.addItem.vehicleData.vehicleId)
+                console.log(removeId)
+                
                 if (removeId.vehicleId == object.vehicleId) {
                     object.vehicleName=object && object.hasOwnProperty('vehicleName') ?object.vehicleName:object.vehicleName=removeId.vehicleName
+                    object.availabilityStatus=object && object.hasOwnProperty('availabilityStatus') ?object.availabilityStatus:object.availabilityStatus=removeId.availabilityStatus
                     object.vehicleRentalPrice=object && object.hasOwnProperty('vehicleRentalPrice')?object.vehicleRentalPrice :object.vehicleRentalPrice=removeId.vehicleRentalPrice
                     object.gearboxType=object && object.hasOwnProperty('gearboxType')?object.gearboxType:object.gearboxType=removeId.gearboxType
                     object.fuelType=object && object.hasOwnProperty('fuelType')?object.fuelType:object.fuelType=removeId.fuelType

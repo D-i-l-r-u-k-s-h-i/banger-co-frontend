@@ -301,6 +301,11 @@ $i: 0;
   border-right: 12vw solid #E3E7EC;
   min-height: calc(100vh - 300px);
 }
+
+.page-wrap_without_border{
+  min-height: calc(100vh - 300px);
+}
+
 // .page-wrap:after {
 //   content: "";
 //   display: block;

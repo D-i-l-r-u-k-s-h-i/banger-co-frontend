@@ -25,6 +25,7 @@ import * as UpdateCustomer from './updateCustomer'
 import * as CheckLisence from './checkLisenceNo'
 import * as GetAvailableItems from './getAvailableItemsForBooking'
 import * as AddItemToBooking from './addItemToBooking'
+import * as AvailableVehicles from './availableVehicles'
 
 
 //taken by reducer
@@ -38,6 +39,10 @@ export{
 
 export{
     AllVehicles as allVehicleTypes
+}
+
+export{
+    AvailableVehicles as availableVehicleTypes
 }
 
 export{
@@ -186,6 +191,8 @@ export const bookingActions=MakeBooking.default;
 export const addItemToBookingActions=AddItemToBooking.default;
 
 export const allVehicleActions=AllVehicles.default;
+
+export const availableVehicleActions=AvailableVehicles.default;
 
 export const signUpActions=SignUp.default;
 

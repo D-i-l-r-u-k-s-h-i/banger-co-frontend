@@ -7,8 +7,10 @@ export class AdminDashboard extends Component {
     render() {
         return (
             <div>
+                <div className='page-wrap_without_border'>
                 <NavBarComponent/>
                 <AdminDashboardComponent/>
+                </div>
                 <Footer/>
             </div>
         )
