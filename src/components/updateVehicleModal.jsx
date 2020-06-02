@@ -119,7 +119,7 @@ export class UpdateVehicleModal extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.loginhandler}>
-                            <h1><span className="font-weight-bold">&#127345;anger &#8523; &#8450;o &#128664;</span></h1>
+                            <h1><span className="font-weight-bold">Banger &#8523; &#8450;o &#128664;</span></h1>
                             <h2 className="text-center">Edit Vehicle</h2><hr />
                             <FormGroup>
                                 <Label>Vehicle Name</Label>

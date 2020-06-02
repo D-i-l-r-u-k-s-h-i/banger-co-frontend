@@ -113,7 +113,7 @@ export class AdminDashboardComponent extends Component {
                 <br></br>
                 <table className="todaysbookings">
                         <tr>
-                                <td>
+                                <td style={{align:"left", "vertical-align":"top", "text-align":"left", position:"fixed"}}>
                                     <div className="btn-group-vertical">
                                 <Link to={{
                                     pathname: '/managevehicles',
@@ -143,14 +143,15 @@ export class AdminDashboardComponent extends Component {
                         </tr>
                     </table>
                     <br/>
-                    <Container>
+                    <Container style={{ "padding-left": '8%' , "padding-right": '5%' }}>
                     <hr/>
-                    <h2>Self Drive Rates In Sri Lanka according to <b>amerirentacar.com</b></h2><br/>
+                    <h2>Self Drive Rates In Sri Lanka according to <b>malkey.lk</b></h2><br/>
                     <Table>
                         <thead>
                             <tr>
                                 <th>Vehicles</th>
-                                <th>Rate Per Week</th>
+                                <th>Rate Per Week(Rs.)</th>
+                                <th>Our Prices(Rs.)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,6 +161,7 @@ export class AdminDashboardComponent extends Component {
                                     <tr>
                                         <td>{property.rentalPrice!=""? property.vehicleName:<b>{property.vehicleName}</b>}</td>
                                         <td>{property.rentalPrice}</td>
+                                        <td>{property.ourPrice!=null?`${property.ourPrice}.00`:property.rentalPrice!=""?'-':null}</td>
                                     </tr>
                                 )
                             })}

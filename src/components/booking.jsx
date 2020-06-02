@@ -136,7 +136,7 @@ export class Booking extends Component {
     );
   }
   contentPending () {
-    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total,bookingId } = this.props.booking;
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total,bookingId,latePickup } = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
 
     let modalClose = () => this.setState({ modalShow: false });
@@ -199,7 +199,7 @@ export class Booking extends Component {
                 <td>Rs.{total}.00</td>
               </tr>
             </table><br />
-            {bookingStatusType === "PICKED_UP" ? <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div> : <div><button onClick={()=>this.setState({ modalShow: true })} type="button" class="btn btn-warning">&#x2b; to Booking</button><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
+            {bookingStatusType === "PICKED_UP" ? <div><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button></div>:bookingStatusType==="PENDING" && latePickup==true ? <button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button>: <div><button onClick={()=>this.setState({ modalShow: true })} type="button" class="btn btn-warning">&#x2b; to Booking</button><button onClick={this.onExtend} type="button" class="btn btn-info float-right">Extend Booking</button><button onClick={this.onCancel} type="button" class="btn btn-secondary float-right mr-2">Cancel Booking</button></div>}
             <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.props.BookingData == false ? "Booking could not be extended" : "Booking was extended successfully until 4.00pm"}
             </Alert>

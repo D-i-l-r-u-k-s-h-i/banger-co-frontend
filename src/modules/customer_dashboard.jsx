@@ -21,7 +21,7 @@ export class CustomerDashboard extends Component {
                     <h3>TERMS AND CONDITIONS</h3><br/>
 
                     <ul>
-                        <li><b>Driving License Requirements</b></li>
+                        <li><b>Driving License Requirements</b>: a photocard driving licence and 1 other form of identity from either a recent utility bill (within 3 months) or council tax statement needs to be presented at the pickup.</li>
                         <li><b>Booking/ Payments</b>: Vehicles can be rented for a minimum of 5 hours (half a day’s rental) and a maximum of 2 weeks.</li>
                         <li><b>Extending Bookings</b>: Any booking can be extended up to 4pm on the day of return if the vehicle has not been booked for rental on the following day.<br/>Hirers can add additional equipments to their booking at any point up to and including collecting the vehicle.</li>
                         <li><b>TAX</b>: Above prices quoted are including Tax</li>

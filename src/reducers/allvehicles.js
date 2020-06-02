@@ -87,6 +87,7 @@ export default handleActions({
         if (state.vehicleData && Array.isArray(state.vehicleData) && state.vehicleData.length !== 0) {
             
             object.imgFile=object.b64image.startsWith('data:image/png')?object.b64image.replace('data:image/png;base64,','') : object.b64image.replace('data:image/jpeg;base64,','')
+            object.availabilityStatus=true
             console.log(object)    
             return state.vehicleData.push(object);
         }
