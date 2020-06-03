@@ -75,7 +75,7 @@ export class Booking extends Component {
   }
 
   content(){
-    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total ,bookingId} = this.props.booking;
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total ,bookingId,lisenceNo} = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
     return (
       <div className="media mb-3">
@@ -83,6 +83,7 @@ export class Booking extends Component {
           <small className="float-right text-muted">{bookingStatusType}</small>
           Rental Period: {rentalPeriod}hrs<br />
           Booking No.: {bookingId}<br />
+          Booked under Lisence No.: {lisenceNo}<br />
           Pickup Date: {pickupDate}<br />
           Return Date: {returnDate}<br />
           <ul>
@@ -136,7 +137,7 @@ export class Booking extends Component {
     );
   }
   contentPending () {
-    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total,bookingId,latePickup } = this.props.booking;
+    const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total,bookingId,latePickup,lisenceNo } = this.props.booking;
     const { bookingStatusType } = this.props.booking.bookingStatus;
 
     let modalClose = () => this.setState({ modalShow: false });
@@ -148,6 +149,7 @@ export class Booking extends Component {
             <small className="float-right text-muted">{bookingStatusType}</small>
             Rental Period: {rentalPeriod}hrs<br />
             Booking No.: {bookingId}<br />
+            Booked under Lisence No.: {lisenceNo}<br />
             Pickup Date: {pickupDate}<br />
             Return Date: {returnDate}<br />
             <ul>

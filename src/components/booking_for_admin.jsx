@@ -33,7 +33,7 @@ export class BookingForAdmin extends Component {
     render() {
         console.log(this.props.booking)
 
-        const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total, customer, lateReturn, latePickup} = this.props.booking;
+        const { rentalPeriod, pickupDate, returnDate, vehicleList, additionalEquipmentList, total, customer, lateReturn, latePickup,lisenceNo} = this.props.booking;
         const { bookingStatusType } = this.state;
 
         console.log(lateReturn)
@@ -43,6 +43,7 @@ export class BookingForAdmin extends Component {
                 <div className="media-body p-4 shadow-sm rounded bg-light border">
                     <small className="float-right text-muted">{bookingStatusType}</small>
                     <small className="float-left text-muted">{customer.customerFName} {customer.customerLName}  ({customer.customerUserName})</small><br/><hr/>
+                    Booked under Lisence No.: {lisenceNo}<br />
                     Rental Period: {rentalPeriod}hrs<br />
                     Pickup Date: {pickupDate}<br />
                     Return Date: {returnDate}<br />

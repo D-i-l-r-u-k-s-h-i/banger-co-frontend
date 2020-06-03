@@ -26,7 +26,8 @@ const booking=createLogic({
             pickupDate : action.payload.startDate,
             returnDate:action.payload.endDate,
             vehicleId :action.payload.vehicleId,
-            equipmentId:action.payload.equipmentId
+            equipmentId:action.payload.equipmentId,
+            lisenceNo:action.payload.lisenceNo
         }
 
         HTTPclient.post(endPoints.MAKE_BOOKING,obj)
